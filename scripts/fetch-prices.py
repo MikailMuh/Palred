@@ -29,6 +29,7 @@ SOURCE = "PIHPS Bank Indonesia (pasar tradisional)"
 REQUEST_DELAY = 1.0
 MAX_DAILY_CHANGE = 0.30
 MIN_COMPLETENESS = 0.5
+MAX_SPIKED_SHARE = 0.20
 JAKARTA = timezone(timedelta(hours=7))  # no DST, avoids needing tzdata on Windows
 
 # key -> (PIHPS ID, name that must match both GetCommoditiesTree and the response).
@@ -151,15 +152,22 @@ def drop_partial_dates(series: dict[str, dict[str, Any]], key: str) -> None:
 
 
 def check_daily_changes(series: dict[str, dict[str, Any]], key: str) -> None:
+    # One province can spike for real (chili markets are volatile), so that only warns.
+    # Fail when the national average jumps or when many provinces spike together.
     ordered = sorted(series)
     for prev, cur in zip(ordered, ordered[1:]):
+        old_nat, new_nat = series[prev]["national"], series[cur]["national"]
+        if old_nat and new_nat and abs(new_nat - old_nat) / old_nat > MAX_DAILY_CHANGE:
+            raise FetchError(f"{key}: national average {old_nat} ({prev}) -> {new_nat} ({cur}) changes more than {MAX_DAILY_CHANGE:.0%}")
+        spiked = []
         for pid, entry in series[cur]["provinces"].items():
             old = series[prev]["provinces"].get(pid)
             if old and abs(entry["value"] - old["value"]) / old["value"] > MAX_DAILY_CHANGE:
-                raise FetchError(
-                    f"{key} {entry['name']}: {old['value']} ({prev}) -> {entry['value']} ({cur}) "
-                    f"changes more than {MAX_DAILY_CHANGE:.0%}"
-                )
+                spiked.append(f"{entry['name']} {old['value']:.0f}->{entry['value']:.0f}")
+        if spiked:
+            print(f"  WARN {key} {cur}: {len(spiked)} province(s) changed >{MAX_DAILY_CHANGE:.0%}: {', '.join(spiked)}")
+        if len(spiked) > MAX_SPIKED_SHARE * len(series[cur]["provinces"]):
+            raise FetchError(f"{key} {cur}: {len(spiked)} of {len(series[cur]['provinces'])} provinces changed more than {MAX_DAILY_CHANGE:.0%}")
 
 
 def load_existing() -> dict[str, Any]:
