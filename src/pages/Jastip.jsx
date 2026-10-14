@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Courier, Produce } from '../components/Art.jsx'
 import { angka, commodities, markets, rupiah, slots } from '../data.js'
+import { formatTanggal } from '../prices.js'
+import { usePricing } from '../pricing.js'
+
+// Pasar di daftar semuanya di Jakarta, jadi patokan harga memakai DKI Jakarta (fallback rata-rata nasional kalau kosong).
+const REGION = 'DKI Jakarta'
 
 const TRACK = [
   ['Pesanan diterima', 'Shopper sedang ditugaskan'],
@@ -10,8 +15,9 @@ const TRACK = [
   ['Sampai', 'Bahan diterima UMKM'],
 ]
 
-export default function Jastip({ live, notify }) {
-  const { prices } = live
+export default function Jastip({ notify }) {
+  const pricing = usePricing(REGION)
+  const priceFor = (c) => (c.pihpsKey ? pricing.refOf(c.pihpsKey)?.value : c.base)
   const [market, setMarket] = useState(markets[0].id)
   const [qty, setQty] = useState({ 'cabai-merah': 2, 'bawang-merah': 1, telur: 3 })
   const [custom, setCustom] = useState('')
@@ -21,8 +27,8 @@ export default function Jastip({ live, notify }) {
 
   const m = markets.find((x) => x.id === market)
   const lines = commodities
-    .filter((c) => qty[c.id] > 0)
-    .map((c) => ({ ...c, n: qty[c.id], sub: qty[c.id] * prices[c.id].price }))
+    .filter((c) => qty[c.id] > 0 && priceFor(c) != null)
+    .map((c) => ({ ...c, n: qty[c.id], sub: qty[c.id] * priceFor(c) }))
   const subtotal = lines.reduce((s, l) => s + l.sub, 0)
   const jasa = Math.max(15000, subtotal * 0.08)
   const ongkir = Math.round(8000 + m.km * 2500)
@@ -37,8 +43,22 @@ export default function Jastip({ live, notify }) {
       <header className="page-head">
         <span className="eyebrow">Jastip Pasar</span>
         <h1>Titip belanja pasar, antar ke dapurmu</h1>
-        <p className="muted">Harga di katalog mengikuti billboard terkini. Harga final sesuai struk pasar.</p>
+        <p className="muted">Harga di katalog adalah patokan, harga final sesuai struk pasar.</p>
       </header>
+
+      {pricing.status === 'loading' && <p role="status" className="muted">Memuat harga bahan…</p>}
+      {(pricing.status === 'error' || pricing.status === 'empty') && (
+        <div role="alert" className="card pad status-box">
+          <strong>Harga PIHPS belum bisa dimuat.</strong>
+          <p className="muted small">Barang yang harganya dari PIHPS belum bisa dipilih.</p>
+          {pricing.status === 'error' && <button className="btn ghost" onClick={pricing.retry}>Muat ulang data harga</button>}
+        </div>
+      )}
+      {pricing.date && (
+        <p className="small muted data-date">
+          Harga bertanda PIHPS = patokan rata-rata {REGION} per {formatTanggal(pricing.date)} dari PIHPS Bank Indonesia. Bertanda estimasi = perkiraan kami, bukan data resmi.
+        </p>
+      )}
 
       <div className="layout-aside">
         <div className="stack">
@@ -61,20 +81,28 @@ export default function Jastip({ live, notify }) {
           <div className="card pad">
             <h2 className="h-step"><span>2</span> Daftar belanja</h2>
             <div className="catalog">
-              {commodities.map((c) => (
-                <div key={c.id} className={`cat-item ${qty[c.id] ? 'on' : ''}`}>
-                  <Produce type={c.icon} size={44} bg="var(--cream-2)" />
-                  <div className="grow">
-                    <div className="strong small">{c.name}</div>
-                    <div className="mono small muted">Rp{angka(prices[c.id].price)}/{c.unit}</div>
+              {commodities.map((c) => {
+                const ref = c.pihpsKey ? pricing.refOf(c.pihpsKey) : null
+                const price = priceFor(c)
+                const unavailable = price == null
+                return (
+                  <div key={c.id} className={`cat-item ${qty[c.id] && !unavailable ? 'on' : ''}`}>
+                    <Produce type={c.icon} size={44} bg="var(--cream-2)" />
+                    <div className="grow">
+                      <div className="strong small">{c.name}</div>
+                      <div className="mono small muted">
+                        {unavailable ? 'harga belum tersedia' : `Rp${angka(price)}/${c.unit}`}
+                        {!unavailable && <span className="tag-est">{c.pihpsKey ? (ref.fallback ? 'PIHPS, rata-rata nasional' : 'PIHPS') : 'estimasi'}</span>}
+                      </div>
+                    </div>
+                    <div className="stepper">
+                      <button aria-label={`Kurangi ${c.name}`} disabled={unavailable} onClick={() => change(c.id, -1)}>−</button>
+                      <span>{unavailable ? 0 : qty[c.id] ?? 0}</span>
+                      <button aria-label={`Tambah ${c.name}`} disabled={unavailable} onClick={() => change(c.id, 1)}>+</button>
+                    </div>
                   </div>
-                  <div className="stepper">
-                    <button aria-label={`Kurangi ${c.name}`} onClick={() => change(c.id, -1)}>−</button>
-                    <span>{qty[c.id] ?? 0}</span>
-                    <button aria-label={`Tambah ${c.name}`} onClick={() => change(c.id, 1)}>+</button>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
             <label className="field">
               <span>Titipan khusus (opsional)</span>

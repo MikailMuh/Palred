@@ -83,7 +83,7 @@ export default function App() {
 
       <main>
         {page === 'home' && <Home go={go} live={live} />}
-        {page === 'jastip' && <Jastip live={live} notify={notify} />}
+        {page === 'jastip' && <Jastip notify={notify} />}
         {page === 'harga' && <Harga />}
         {page === 'paket' && <Paket addToCart={addToCart} />}
       </main>

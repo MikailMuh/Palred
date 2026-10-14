@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Produce, Sparkline } from '../components/Art.jsx'
+import CekHarga from '../components/CekHarga.jsx'
 import { angka } from '../data.js'
 import { PRICE_GROUPS, daysSince, formatTanggal, isStale, seriesUntil, usePriceData, valueAt } from '../prices.js'
 
@@ -211,6 +212,8 @@ function Billboard({ data, meta }) {
           </div>
         </aside>
       </div>
+
+      <CekHarga data={data} meta={meta} provId={provId} provName={provName} />
 
       <details className="card pad method">
         <summary>Bagaimana harga ini dihitung?</summary>

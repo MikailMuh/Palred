@@ -317,3 +317,14 @@ button.board-row:hover { background: #1c3529; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.tag-est { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; background: var(--yellow-soft); color: var(--ink); font-size: 0.72rem; font-weight: 700; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.cek-harga { margin-top: 24px; }
+.select { border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px; background: #fff; min-height: 44px; font: inherit; color: inherit; }
+.cek-result { margin: 16px 0 8px; min-height: 44px; }
+.verdict { border: 2px solid var(--line); border-radius: 12px; padding: 12px 16px; background: #fff; }
+.verdict p { margin: 6px 0 0; }
+.verdict.ok { border-color: var(--down); background: var(--forest-soft); }
+.verdict.mid { border-color: var(--yellow); background: var(--yellow-soft); }
+.verdict.far { border-color: var(--up); background: var(--red-soft); }
+.stepper button:disabled { opacity: 0.35; cursor: not-allowed; }

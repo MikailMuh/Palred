@@ -64,6 +64,15 @@ export const seriesUntil = (data, key, upTo, provId) =>
     .map((date) => ({ date, value: valueAt(data, key, date, provId) }))
     .filter((p) => p.value != null)
 
+// Patokan harga terbaru yang sudah lengkap. Provinsi tanpa data jatuh ke rata-rata nasional, dan fallback ditandai.
+export const referencePrice = (data, meta, key, provName) => {
+  const provId = meta.provinces.find((p) => p.name === provName)?.id
+  const prov = provId ? valueAt(data, key, meta.latest, provId) : undefined
+  if (prov != null) return { value: prov, fallback: false }
+  const national = valueAt(data, key, meta.latest, '')
+  return national != null ? { value: national, fallback: provId != null || provName != null } : null
+}
+
 // Data harian PIHPS hanya terbit di hari kerja, jadi Jumat -> Selasa pagi masih wajar (4 hari).
 const STALE_AFTER_DAYS = 4
 

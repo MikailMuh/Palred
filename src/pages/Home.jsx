@@ -1,8 +1,10 @@
 import { Billboard, Courier, Dish, HeroMarket, PackageBox, Produce } from '../components/Art.jsx'
-import { angka, commodities, packPrice, recipes, rupiah } from '../data.js'
+import { angka, commodities, recipes, rupiah } from '../data.js'
+import { usePricing } from '../pricing.js'
 
 export default function Home({ go, live }) {
   const { prices, region } = live
+  const pricing = usePricing()
 
   return (
     <>
@@ -125,7 +127,7 @@ export default function Home({ go, live }) {
         <div className="section-head row between">
           <div>
             <h2>Paket masak terlaris</h2>
-            <p className="muted">Harga untuk 2 porsi, bahan sudah ditakar.</p>
+            <p className="muted">Perkiraan harga untuk 2 porsi, dihitung dari harga PIHPS.</p>
           </div>
           <button className="btn ghost" onClick={() => go('paket')}>Semua paket →</button>
         </div>
@@ -136,7 +138,7 @@ export default function Home({ go, live }) {
               <div className="recipe-meta">
                 <h3>{r.name}</h3>
                 <p className="muted small">{r.origin} · {r.minutes} menit</p>
-                <div className="price">{rupiah(packPrice(r, 2))}</div>
+                <div className="price">{pricing.packFor(r, 2) ? rupiah(pricing.packFor(r, 2).total) : 'Harga belum tersedia'}</div>
               </div>
             </button>
           ))}
