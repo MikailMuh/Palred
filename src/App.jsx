@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
-import { useLivePrices } from './data.js'
+import { recipes, useLivePrices } from './data.js'
 import Home from './pages/Home.jsx'
 import Jastip from './pages/Jastip.jsx'
 import Harga from './pages/Harga.jsx'
 import Paket from './pages/Paket.jsx'
+import Keranjang from './pages/Keranjang.jsx'
 
 const NAV = [
   { id: 'home', label: 'Beranda' },
@@ -13,7 +14,7 @@ const NAV = [
   { id: 'paket', label: 'Paket Masak' },
 ]
 
-const PATHS = { home: '/', jastip: '/jastip', harga: '/harga', paket: '/paket' }
+const PATHS = { home: '/', jastip: '/jastip', harga: '/harga', paket: '/paket', keranjang: '/keranjang' }
 
 const pageFromPath = (path) => {
   const clean = path.replace(/\/+$/, '') || '/'
@@ -40,7 +41,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const titles = { home: 'Palred — Pasar dalam genggaman', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred' }
+    const titles = { home: 'Palred — Pasar dalam genggaman', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred' }
     document.title = titles[page]
   }, [page])
 
@@ -51,10 +52,23 @@ export default function App() {
     return () => clearTimeout(t)
   }, [toast])
 
-  const addToCart = (item) => {
-    setCart((c) => [...c, item])
-    notify(`${item.name} masuk keranjang`)
+  const sameLine = (l, recipeId, portions) => l.recipeId === recipeId && l.portions === portions
+
+  const addToCart = ({ recipeId, portions }) => {
+    setCart((c) =>
+      c.some((l) => sameLine(l, recipeId, portions))
+        ? c.map((l) => (sameLine(l, recipeId, portions) ? { ...l, qty: l.qty + 1 } : l))
+        : [...c, { recipeId, portions, qty: 1 }],
+    )
+    notify(`Paket ${recipes.find((r) => r.id === recipeId).name} (${portions} porsi) masuk keranjang`)
   }
+
+  const changeQty = (recipeId, portions, delta) =>
+    setCart((c) => c.map((l) => (sameLine(l, recipeId, portions) ? { ...l, qty: l.qty + delta } : l)).filter((l) => l.qty > 0))
+
+  const removeLine = (recipeId, portions) => setCart((c) => c.filter((l) => !sameLine(l, recipeId, portions)))
+
+  const cartCount = cart.reduce((n, l) => n + l.qty, 0)
 
   return (
     <div className="app">
@@ -71,21 +85,22 @@ export default function App() {
               </button>
             ))}
           </nav>
-          <button className="cart-btn" aria-label={`Keranjang, ${cart.length} item`}>
+          <button className="cart-btn" aria-label={`Keranjang, ${cartCount} item`} onClick={() => go('keranjang')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 7h12l-1 13H7z" />
               <path d="M9 7a3 3 0 0 1 6 0" />
             </svg>
-            {cart.length > 0 && <span className="badge">{cart.length}</span>}
+            {cartCount > 0 && <span className="badge">{cartCount}</span>}
           </button>
         </div>
       </header>
 
       <main>
         {page === 'home' && <Home go={go} live={live} />}
-        {page === 'jastip' && <Jastip notify={notify} />}
+        {page === 'jastip' && <Jastip />}
         {page === 'harga' && <Harga />}
         {page === 'paket' && <Paket addToCart={addToCart} />}
+        {page === 'keranjang' && <Keranjang cart={cart} changeQty={changeQty} removeLine={removeLine} go={go} />}
       </main>
 
       <footer className="footer">

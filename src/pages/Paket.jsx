@@ -155,7 +155,7 @@ function Detail({ recipe, pricing, onClose, addToCart }) {
             className="btn primary"
             disabled={!pack}
             onClick={() => {
-              addToCart({ id: recipe.id, name: `Paket ${recipe.name} (${portions} porsi)`, portions, price: pack.total })
+              addToCart({ recipeId: recipe.id, portions })
               onClose()
             }}
           >

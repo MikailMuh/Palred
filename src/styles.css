@@ -328,3 +328,14 @@ button.board-row:hover { background: #1c3529; }
 .verdict.mid { border-color: var(--yellow); background: var(--yellow-soft); }
 .verdict.far { border-color: var(--up); background: var(--red-soft); }
 .stepper button:disabled { opacity: 0.35; cursor: not-allowed; }
+.field-error { color: var(--red-dark); font-weight: 600; min-height: 1.2em; }
+.field input[aria-invalid='true'] { border-color: var(--red-dark); }
+.detail-list { margin: 0; display: grid; gap: 12px; }
+.detail-list div { display: grid; gap: 2px; }
+.detail-list dt { color: var(--ink-2); font-size: 0.85rem; }
+.detail-list dd { margin: 0; font-weight: 600; }
+.cart-list { list-style: none; padding: 0; margin: 0; }
+.cart-line { display: flex; gap: 16px; align-items: flex-start; }
+.cart-dish { width: 88px; flex-shrink: 0; border-radius: 12px; overflow: hidden; }
+.link-btn { text-decoration: underline; font-weight: 700; color: var(--forest); min-height: 44px; }
+@media (max-width: 680px) { .cart-line { flex-wrap: wrap; } }

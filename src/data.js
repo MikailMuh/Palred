@@ -34,7 +34,7 @@ export const commodities = [
   { id: 'ikan', name: 'Ikan Kembung', unit: 'kg', cat: 'Protein', icon: 'ikan', base: 42000 },
   { id: 'tahu', name: 'Tahu Putih', unit: 'papan', cat: 'Protein', icon: 'tahu', base: 12000 },
   { id: 'beras', name: 'Beras Medium', unit: 'kg', cat: 'Sembako', icon: 'beras', pihpsKey: 'beras-medium-1', base: 13200 },
-  { id: 'minyak', name: 'Minyak Goreng', unit: 'liter', cat: 'Sembako', icon: 'minyak', pihpsKey: 'minyak-curah', base: 17500 },
+  { id: 'minyak', name: 'Minyak Goreng', unit: 'kg', cat: 'Sembako', icon: 'minyak', pihpsKey: 'minyak-curah', base: 17500 },
   { id: 'gula', name: 'Gula Pasir', unit: 'kg', cat: 'Sembako', icon: 'gula', pihpsKey: 'gula-lokal', base: 17800 },
   { id: 'kelapa', name: 'Kelapa Parut', unit: 'butir', cat: 'Sembako', icon: 'kelapa', base: 11000 },
 ]
@@ -97,7 +97,7 @@ export const recipes = [
       { name: 'Telur ayam', icon: 'telur', qty: 2, unit: 'butir', pihpsKey: 'telur-ayam', gramsEach: 60 },
       { name: 'Bawang merah', icon: 'bawang', qty: 30, unit: 'g', pihpsKey: 'bawang-merah' },
       { name: 'Cabai rawit', icon: 'cabai', qty: 15, unit: 'g', pihpsKey: 'cabai-rawit-merah' },
-      { name: 'Minyak goreng', icon: 'minyak', qty: 50, unit: 'ml', pihpsKey: 'minyak-curah' },
+      { name: 'Minyak goreng', icon: 'minyak', qty: 50, unit: 'ml', pihpsKey: 'minyak-curah', gramsPerMl: 0.92 },
     ],
   },
   {
@@ -121,17 +121,17 @@ export const recipes = [
       { name: 'Cabai merah keriting', icon: 'cabai', qty: 100, unit: 'g', pihpsKey: 'cabai-merah-keriting' },
       { name: 'Tomat', icon: 'tomat', qty: 100, unit: 'g', estPrice: 1400 },
       { name: 'Bawang merah', icon: 'bawang', qty: 40, unit: 'g', pihpsKey: 'bawang-merah' },
-      { name: 'Minyak goreng', icon: 'minyak', qty: 150, unit: 'ml', pihpsKey: 'minyak-curah' },
+      { name: 'Minyak goreng', icon: 'minyak', qty: 150, unit: 'ml', pihpsKey: 'minyak-curah', gramsPerMl: 0.92 },
     ],
   },
 ]
 
-// PIHPS: harga per kg (minyak per liter, belum terverifikasi resmi di bi.go.id). g dan ml dianggap setara kg dan liter.
-// TODO: gramsEach (berat 1 butir telur) masih asumsi, dan 1 ml minyak dianggap 1 g.
+// PIHPS: harga per kg untuk semua komoditas (dikonfirmasi dari bi.go.id/hargapangan, termasuk minyak goreng).
+// TODO: gramsEach (berat 1 butir telur) dan gramsPerMl (massa jenis minyak) masih asumsi.
 export const ingredientCost = (ing, pihpsValue) => {
   if (ing.pihpsKey) {
     if (pihpsValue == null) return null
-    const grams = ing.unit === 'butir' ? ing.qty * ing.gramsEach : ing.qty
+    const grams = ing.unit === 'butir' ? ing.qty * ing.gramsEach : ing.unit === 'ml' ? ing.qty * ing.gramsPerMl : ing.qty
     return (pihpsValue * grams) / 1000
   }
   return ing.estPrice

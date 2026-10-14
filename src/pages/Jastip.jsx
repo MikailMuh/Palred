@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Courier, Produce } from '../components/Art.jsx'
+import { useState } from 'react'
+import { Produce } from '../components/Art.jsx'
 import { angka, commodities, markets, rupiah, slots } from '../data.js'
 import { formatTanggal } from '../prices.js'
 import { usePricing } from '../pricing.js'
@@ -7,23 +7,29 @@ import { usePricing } from '../pricing.js'
 // Pasar di daftar semuanya di Jakarta, jadi patokan harga memakai DKI Jakarta (fallback rata-rata nasional kalau kosong).
 const REGION = 'DKI Jakarta'
 
-const TRACK = [
-  ['Pesanan diterima', 'Shopper sedang ditugaskan'],
-  ['Shopper di pasar', 'Memilih bahan & kirim foto'],
-  ['Belanja selesai', 'Struk & foto bahan terlampir'],
-  ['Dalam perjalanan', 'Kurir menuju dapurmu'],
-  ['Sampai', 'Bahan diterima UMKM'],
-]
+const PHONE_PATTERN = /^(\+62|62|0)8\d{8,11}$/
 
-export default function Jastip({ notify }) {
+function validate(form) {
+  const errors = {}
+  if (!form.nama.trim()) errors.nama = 'Isi nama usaha atau nama kamu.'
+  if (!form.alamat.trim()) errors.alamat = 'Isi alamat antar.'
+  if (!form.hp.trim()) errors.hp = 'Isi nomor WhatsApp.'
+  else if (!PHONE_PATTERN.test(form.hp.replace(/[\s-]/g, ''))) errors.hp = 'Nomor WhatsApp tidak valid. Contoh: 08xxxxxxxxxx.'
+  return errors
+}
+
+export default function Jastip() {
   const pricing = usePricing(REGION)
   const priceFor = (c) => (c.pihpsKey ? pricing.refOf(c.pihpsKey)?.value : c.base)
   const [market, setMarket] = useState(markets[0].id)
-  const [qty, setQty] = useState({ 'cabai-merah': 2, 'bawang-merah': 1, telur: 3 })
+  const [qty, setQty] = useState({})
   const [custom, setCustom] = useState('')
   const [slot, setSlot] = useState(slots[1])
-  const [form, setForm] = useState({ nama: 'Warung Bu Sari', alamat: 'Jl. Kenanga No. 12, Jakarta Timur', hp: '0812-xxxx-2210' })
+  const [form, setForm] = useState({ nama: '', alamat: '', hp: '' })
+  const [submitted, setSubmitted] = useState(false)
   const [ordered, setOrdered] = useState(false)
+  const errors = validate(form)
+  const showError = (k) => (submitted ? errors[k] : undefined)
 
   const m = markets.find((x) => x.id === market)
   const lines = commodities
@@ -36,7 +42,32 @@ export default function Jastip({ notify }) {
 
   const change = (id, d) => setQty((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) + d) }))
 
-  if (ordered) return <Tracking market={m} slot={slot} total={total} lines={lines} onBack={() => setOrdered(false)} />
+  const submit = () => {
+    setSubmitted(true)
+    if (Object.keys(errors).length > 0) {
+      document.getElementById(`jastip-${Object.keys(errors)[0]}`)?.focus()
+      return
+    }
+    setOrdered(true)
+    window.scrollTo({ top: 0 })
+  }
+
+  if (ordered) {
+    return (
+      <Ringkasan
+        order={{ market: m, slot, form, custom, lines, subtotal, jasa, ongkir, total }}
+        pricingDate={pricing.date}
+        onBack={() => setOrdered(false)}
+        onReset={() => {
+          setOrdered(false)
+          setSubmitted(false)
+          setQty({})
+          setCustom('')
+          setForm({ nama: '', alamat: '', hp: '' })
+        }}
+      />
+    )
+  }
 
   return (
     <section className="container page">
@@ -120,15 +151,18 @@ export default function Jastip({ notify }) {
             <div className="form-grid">
               <label className="field">
                 <span>Nama usaha</span>
-                <input value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} />
+                <input id="jastip-nama" autoComplete="organization" aria-invalid={!!showError('nama')} aria-describedby="jastip-nama-err" value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} />
+                <small id="jastip-nama-err" className="field-error">{showError('nama')}</small>
               </label>
               <label className="field">
                 <span>No. WhatsApp</span>
-                <input value={form.hp} onChange={(e) => setForm({ ...form, hp: e.target.value })} />
+                <input id="jastip-hp" type="tel" autoComplete="tel" placeholder="08xxxxxxxxxx" aria-invalid={!!showError('hp')} aria-describedby="jastip-hp-err" value={form.hp} onChange={(e) => setForm({ ...form, hp: e.target.value })} />
+                <small id="jastip-hp-err" className="field-error">{showError('hp')}</small>
               </label>
               <label className="field full">
                 <span>Alamat antar</span>
-                <input value={form.alamat} onChange={(e) => setForm({ ...form, alamat: e.target.value })} />
+                <input id="jastip-alamat" autoComplete="street-address" aria-invalid={!!showError('alamat')} aria-describedby="jastip-alamat-err" value={form.alamat} onChange={(e) => setForm({ ...form, alamat: e.target.value })} />
+                <small id="jastip-alamat-err" className="field-error">{showError('alamat')}</small>
               </label>
             </div>
             <div className="field">
@@ -161,68 +195,65 @@ export default function Jastip({ notify }) {
             <div><dt>Ongkir · {m.km} km</dt><dd>{rupiah(ongkir)}</dd></div>
             <div className="grand"><dt>Total estimasi</dt><dd>{rupiah(total)}</dd></div>
           </dl>
-          <button
-            className="btn primary block"
-            disabled={lines.length === 0 && !custom}
-            onClick={() => {
-              setOrdered(true)
-              notify('Pesanan jastip dibuat!')
-              window.scrollTo({ top: 0 })
-            }}
-          >
-            Pesan jastip
+          <button className="btn primary block" disabled={lines.length === 0 && !custom} onClick={submit}>
+            Lanjut ke ringkasan pesanan
           </button>
-          <p className="muted small center">Bayar setelah kamu setujui foto belanjaan.</p>
         </aside>
       </div>
     </section>
   )
 }
 
-function Tracking({ market, slot, total, lines, onBack }) {
-  const [step, setStep] = useState(0)
-  useEffect(() => {
-    if (step >= TRACK.length - 1) return
-    const t = setTimeout(() => setStep((s) => s + 1), 2200)
-    return () => clearTimeout(t)
-  }, [step])
-
-  const code = useMemo(() => 'PLR-' + Math.random().toString(36).slice(2, 7).toUpperCase(), [])
-
+function Ringkasan({ order, pricingDate, onBack, onReset }) {
+  const { market, slot, form, custom, lines, subtotal, jasa, ongkir, total } = order
   return (
     <section className="container page">
       <header className="page-head">
-        <span className="eyebrow">Lacak pesanan · {code}</span>
-        <h1>{TRACK[step][0]}</h1>
-        <p className="muted">{TRACK[step][1]}</p>
+        <span className="eyebrow">Ringkasan pesanan jastip</span>
+        <h1>Pesananmu belum dikirim</h1>
+        <p className="muted">
+          Prototipe ini belum terhubung ke WhatsApp tim, jadi belum ada pesanan yang masuk. Ini ringkasan yang akan dikirim nanti. Harga final sesuai struk pasar.
+        </p>
       </header>
       <div className="layout-aside">
-        <div className="card pad">
-          <div className="track-art"><Courier /></div>
-          <ol className="tracker">
-            {TRACK.map(([t, d], i) => (
-              <li key={t} className={i < step ? 'done' : i === step ? 'current' : ''}>
-                <span className="node">{i < step ? '✓' : i + 1}</span>
-                <div>
-                  <div className="strong">{t}</div>
-                  <div className="muted small">{d}</div>
-                </div>
-              </li>
-            ))}
-          </ol>
+        <div className="card pad stack">
+          <div>
+            <h2>Data pemesan</h2>
+            <dl className="detail-list">
+              <div><dt>Nama usaha</dt><dd>{form.nama}</dd></div>
+              <div><dt>No. WhatsApp</dt><dd>{form.hp}</dd></div>
+              <div><dt>Alamat antar</dt><dd>{form.alamat}</dd></div>
+              <div><dt>Pasar</dt><dd>{market.name}, {market.area}</dd></div>
+              <div><dt>Slot antar besok</dt><dd>{slot}</dd></div>
+            </dl>
+          </div>
+          {custom && (
+            <div>
+              <h3>Titipan khusus</h3>
+              <p>{custom}</p>
+            </div>
+          )}
         </div>
         <aside className="card pad summary">
-          <h2>Detail</h2>
-          <p className="muted small">{market.name} · antar {slot}</p>
+          <h2>Barang titipan</h2>
           <ul className="sum-list">
             {lines.map((l) => (
-              <li key={l.id}><span>{l.n} {l.unit} {l.name}</span></li>
+              <li key={l.id}>
+                <span>{l.n} {l.unit} {l.name} <span className="tag-est">{l.pihpsKey ? 'PIHPS' : 'estimasi'}</span></span>
+                <span className="mono">{rupiah(l.sub)}</span>
+              </li>
             ))}
+            {custom && <li><span>+ Titipan khusus</span><span className="muted small">sesuai struk</span></li>}
           </ul>
           <dl className="sum-total">
+            <div><dt>Estimasi belanja</dt><dd>{rupiah(subtotal)}</dd></div>
+            <div><dt>Biaya jasa (8%, min. 15rb)</dt><dd>{rupiah(jasa)}</dd></div>
+            <div><dt>Ongkir · {market.km} km</dt><dd>{rupiah(ongkir)}</dd></div>
             <div className="grand"><dt>Total estimasi</dt><dd>{rupiah(total)}</dd></div>
           </dl>
-          <button className="btn ghost block" onClick={onBack}>Buat titipan baru</button>
+          {pricingDate && <p className="muted small">Harga PIHPS per {formatTanggal(pricingDate)}.</p>}
+          <button className="btn ghost block" onClick={onBack}>Ubah pesanan</button>
+          <button className="btn light block" onClick={onReset}>Buat titipan baru</button>
         </aside>
       </div>
     </section>

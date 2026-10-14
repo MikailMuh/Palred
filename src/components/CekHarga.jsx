@@ -6,7 +6,6 @@ import { PRICE_GROUPS, formatTanggal, seriesUntil, valueAt } from '../prices.js'
 const NEAR_PCT = 10
 const FAR_PCT = 25
 
-const unitOf = (key) => (key.startsWith('minyak') ? 'liter' : 'kg')
 
 function verdict(pct) {
   const abs = Math.abs(pct)
@@ -45,7 +44,7 @@ export default function CekHarga({ data, meta, provId, provName }) {
           </select>
         </label>
         <label className="field">
-          <span>Harga yang ditawarkan (Rp per {unitOf(key)})</span>
+          <span>Harga yang ditawarkan (Rp per kg)</span>
           <input inputMode="numeric" placeholder="Contoh: 90000" value={raw} onChange={(e) => setRaw(e.target.value)} />
         </label>
       </div>
