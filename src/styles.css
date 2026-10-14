@@ -232,6 +232,14 @@ button.board-row:hover { background: #1c3529; }
 .delta { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 700; }
 .delta.up { color: #ff8a73; }
 .delta.down { color: var(--leaf); }
+.delta.flat { color: #9fb8a8; }
+.no-data { color: #7f9a8a; font-size: 0.85rem; }
+.no-data-lg { font-size: 1.1rem; color: var(--ink-2); }
+.data-date { margin: 0 0 16px; }
+.board-field { display: grid; gap: 4px; color: #9fb8a8; }
+.board-select { background: #0d1a14; border: 1px solid #2d4a3c; color: #fff; padding: 10px 14px; border-radius: 10px; width: 100%; min-height: 44px; }
+.variant-chips { margin-top: 14px; }
+.bars-scroll { max-height: 420px; overflow-y: auto; padding-right: 6px; }
 .board-empty { padding: 30px; text-align: center; color: #7f9a8a; }
 .big-price { font-size: 2rem; font-weight: 700; color: var(--forest); margin: 16px 0 6px; }
 .big-price small { font-size: 0.9rem; color: var(--ink-2); }

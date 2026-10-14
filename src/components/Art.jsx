@@ -316,7 +316,7 @@ export function Logo({ size = 32 }) {
 }
 
 export function Sparkline({ data, w = 96, h = 28, up }) {
-  if (!data?.length) return null
+  if (!data || data.length < 2) return null
   const min = Math.min(...data)
   const max = Math.max(...data)
   const span = max - min || 1
