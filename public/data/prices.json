@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-14T12:11:39+07:00",
+ "updatedAt": "2026-10-14T21:28:57+07:00",
  "source": "PIHPS Bank Indonesia (pasar tradisional)",
  "commodities": {
   "beras-bawah-1": {
@@ -3003,7 +3003,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 14550.0
+      "value": 14650.0
      },
      "29": {
       "name": "Sulawesi Utara",
@@ -6007,7 +6007,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 14000.0
+      "value": 14100.0
      },
      "14": {
       "name": "Jawa Tengah",
@@ -9091,7 +9091,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 15750.0
+      "value": 15850.0
      },
      "28": {
       "name": "Sulawesi Tengah",
@@ -12083,7 +12083,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 15100.0
+      "value": 15200.0
      },
      "19": {
       "name": "Nusa Tenggara Timur",
@@ -15151,7 +15151,7 @@
     }
    },
    "2026-10-14": {
-    "national": 17900.0,
+    "national": 17950.0,
     "provinces": {
      "26": {
       "name": "Sulawesi Selatan",
@@ -15187,7 +15187,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 16350.0
+      "value": 16400.0
      },
      "27": {
       "name": "Sulawesi Tenggara",
@@ -15207,7 +15207,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 17250.0
+      "value": 17450.0
      },
      "23": {
       "name": "Kalimantan Timur",
@@ -18187,7 +18187,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 16350.0
+      "value": 16450.0
      },
      "5": {
       "name": "Kepulauan Riau",
@@ -21247,7 +21247,7 @@
     }
    },
    "2026-10-14": {
-    "national": 40950.0,
+    "national": 41000.0,
     "provinces": {
      "26": {
       "name": "Sulawesi Selatan",
@@ -21279,7 +21279,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 38800.0
+      "value": 38750.0
      },
      "5": {
       "name": "Kepulauan Riau",
@@ -21291,7 +21291,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 39500.0
+      "value": 39750.0
      },
      "15": {
       "name": "DI Yogyakarta",
@@ -24371,7 +24371,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 145900.0
+      "value": 145750.0
      },
      "10": {
       "name": "Lampung",
@@ -24411,7 +24411,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 157500.0
+      "value": 157650.0
      },
      "24": {
       "name": "Kalimantan Utara",
@@ -27275,7 +27275,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 132700.0
+      "value": 132800.0
      },
      "17": {
       "name": "Bali",
@@ -27319,7 +27319,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 148350.0
+      "value": 148450.0
      },
      "28": {
       "name": "Sulawesi Tengah",
@@ -30347,7 +30347,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 24650.0
+      "value": 24700.0
      },
      "15": {
       "name": "DI Yogyakarta",
@@ -30359,7 +30359,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 25700.0
+      "value": 25750.0
      },
      "10": {
       "name": "Lampung",
@@ -33471,7 +33471,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 33700.0
+      "value": 33800.0
      },
      "11": {
       "name": "Banten",
@@ -36523,11 +36523,11 @@
     }
    },
    "2026-10-14": {
-    "national": 38400.0,
+    "national": 38350.0,
     "provinces": {
      "16": {
       "name": "Jawa Timur",
-      "value": 29250.0
+      "value": 29200.0
      },
      "5": {
       "name": "Kepulauan Riau",
@@ -36583,7 +36583,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 38300.0
+      "value": 37900.0
      },
      "7": {
       "name": "Bengkulu",
@@ -39067,7 +39067,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 62700.0
+      "value": 62950.0
      },
      "30": {
       "name": "Sulawesi Barat",
@@ -42139,7 +42139,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 78650.0
+      "value": 79350.0
      },
      "7": {
       "name": "Bengkulu",
@@ -45015,7 +45015,7 @@
     }
    },
    "2026-10-14": {
-    "national": 79550.0,
+    "national": 79600.0,
     "provinces": {
      "18": {
       "name": "Nusa Tenggara Barat",
@@ -45031,7 +45031,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 39600.0
+      "value": 39800.0
      },
      "26": {
       "name": "Sulawesi Selatan",
@@ -45051,7 +45051,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 57450.0
+      "value": 57850.0
      },
      "11": {
       "name": "Banten",
@@ -47939,7 +47939,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 60350.0
+      "value": 60150.0
      },
      "17": {
       "name": "Bali",
@@ -47975,7 +47975,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 84600.0
+      "value": 84300.0
      },
      "23": {
       "name": "Kalimantan Timur",
@@ -53859,7 +53859,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 22850.0
+      "value": 22900.0
      },
      "2": {
       "name": "Sumatera Utara",
@@ -56951,7 +56951,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 22200.0
+      "value": 22250.0
      },
      "14": {
       "name": "Jawa Tengah",
@@ -56959,7 +56959,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 22700.0
+      "value": 22600.0
      },
      "18": {
       "name": "Nusa Tenggara Barat",
@@ -59943,7 +59943,7 @@
     }
    },
    "2026-10-14": {
-    "national": 20450.0,
+    "national": 20500.0,
     "provinces": {
      "29": {
       "name": "Sulawesi Utara",
@@ -59951,7 +59951,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 18750.0
+      "value": 18850.0
      },
      "15": {
       "name": "DI Yogyakarta",
@@ -59971,7 +59971,7 @@
      },
      "12": {
       "name": "Jawa Barat",
-      "value": 19300.0
+      "value": 19350.0
      },
      "14": {
       "name": "Jawa Tengah",
