@@ -13,17 +13,36 @@ const NAV = [
   { id: 'paket', label: 'Paket Masak' },
 ]
 
+const PATHS = { home: '/', jastip: '/jastip', harga: '/harga', paket: '/paket' }
+
+const pageFromPath = (path) => {
+  const clean = path.replace(/\/+$/, '') || '/'
+  return Object.keys(PATHS).find((id) => PATHS[id] === clean) ?? 'home'
+}
+
 export default function App() {
-  const [page, setPage] = useState('home')
-  const [regionId, setRegionId] = useState('jkt')
+  const [page, setPage] = useState(() => pageFromPath(window.location.pathname))
+  const [regionId] = useState('jkt')
   const [cart, setCart] = useState([])
   const [toast, setToast] = useState(null)
   const live = useLivePrices(regionId)
 
   const go = (id) => {
+    if (id !== page) window.history.pushState(null, '', PATHS[id])
     setPage(id)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  useEffect(() => {
+    const onPop = () => setPage(pageFromPath(window.location.pathname))
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
+  useEffect(() => {
+    const titles = { home: 'Palred — Pasar dalam genggaman', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred' }
+    document.title = titles[page]
+  }, [page])
 
   const notify = (msg) => setToast({ msg, key: Date.now() })
   useEffect(() => {

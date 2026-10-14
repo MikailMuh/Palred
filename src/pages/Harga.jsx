@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Produce, Sparkline } from '../components/Art.jsx'
 import { angka } from '../data.js'
-import { PRICE_GROUPS, formatTanggal, seriesUntil, usePriceData, valueAt } from '../prices.js'
+import { PRICE_GROUPS, daysSince, formatTanggal, isStale, seriesUntil, usePriceData, valueAt } from '../prices.js'
 
 const CATEGORIES = ['Semua', 'Bumbu', 'Protein', 'Sembako']
 
@@ -19,7 +19,19 @@ export default function Harga() {
       </header>
 
       {state.status === 'loading' && <p role="status" className="muted">Memuat data harga…</p>}
-      {state.status === 'error' && <p role="alert" className="muted">Data harga gagal dimuat. Coba muat ulang halaman.</p>}
+      {state.status === 'error' && (
+        <div role="alert" className="card pad status-box">
+          <strong>Data harga gagal dimuat.</strong>
+          <p className="muted small">Cek koneksi internetmu, lalu coba lagi.</p>
+          <button className="btn ghost" onClick={state.retry}>Muat ulang data harga</button>
+        </div>
+      )}
+      {state.status === 'empty' && (
+        <div role="status" className="card pad status-box">
+          <strong>Belum ada data harga.</strong>
+          <p className="muted small">Data dari PIHPS Bank Indonesia belum tersedia. Coba lagi nanti.</p>
+        </div>
+      )}
       {state.status === 'ready' && <Billboard data={state.data} meta={state.meta} />}
     </section>
   )
@@ -61,6 +73,14 @@ function Billboard({ data, meta }) {
 
   return (
     <>
+      {isStale(latest) && (
+        <div role="status" className="card pad note stale-note">
+          <strong>Data mungkin belum diperbarui.</strong>
+          <p className="small">
+            Data terbaru yang kami punya tertanggal {formatTanggal(latest)} ({daysSince(latest)} hari lalu). Pakai sebagai gambaran saja dan cek harga di pasar.
+          </p>
+        </div>
+      )}
       <p className="small muted data-date">
         <strong>Data per {formatTanggal(latest)}</strong>
         {previous && <> · selisih dibanding {formatTanggal(previous)}</>}
@@ -191,6 +211,19 @@ function Billboard({ data, meta }) {
           </div>
         </aside>
       </div>
+
+      <details className="card pad method">
+        <summary>Bagaimana harga ini dihitung?</summary>
+        <ul className="small">
+          <li>Sumber: PIHPS (Pusat Informasi Harga Pangan Strategis) Bank Indonesia, kategori pasar tradisional. Data diambil otomatis dari situs PIHPS.</li>
+          <li>Angka adalah rata-rata harga per provinsi, bukan harga di satu pasar atau lapak. "Rata-rata nasional" adalah angka PIHPS untuk seluruh provinsi yang melapor pada hari itu.</li>
+          <li>Data terbit di hari kerja. Sabtu dan Minggu tidak ada data baru.</li>
+          <li>Data hari terbaru sering baru terisi sebagian provinsi. Papan memakai tanggal terbaru yang sudah hampir lengkap, jadi bisa tertinggal sehari dari hari ini.</li>
+          <li>Selisih (▲▼) dibandingkan dengan hari data sebelumnya, bukan selalu kemarin. Grafik tren memakai semua hari data yang tersedia sejak {formatTanggal(meta.dates[0])}.</li>
+          <li>Provinsi yang tidak melapor pada hari itu ditulis "belum ada data", bukan nol.</li>
+          <li>Harga di pasar dekatmu bisa berbeda. Pakai sebagai patokan saat menawar, bukan harga pasti.</li>
+        </ul>
+      </details>
     </>
   )
 }

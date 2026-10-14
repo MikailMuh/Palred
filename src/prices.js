@@ -64,8 +64,19 @@ export const seriesUntil = (data, key, upTo, provId) =>
     .map((date) => ({ date, value: valueAt(data, key, date, provId) }))
     .filter((p) => p.value != null)
 
+// Data harian PIHPS hanya terbit di hari kerja, jadi Jumat -> Selasa pagi masih wajar (4 hari).
+const STALE_AFTER_DAYS = 4
+
+export const daysSince = (iso) => {
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta' }).format(new Date())
+  return Math.round((Date.parse(today) - Date.parse(iso)) / 86400000)
+}
+
+export const isStale = (iso) => daysSince(iso) > STALE_AFTER_DAYS
+
 export function usePriceData() {
   const [state, setState] = useState({ status: 'loading' })
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     const ctrl = new AbortController()
@@ -74,12 +85,20 @@ export function usePriceData() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
       })
-      .then((data) => setState({ status: 'ready', data, meta: analyze(data) }))
+      .then((data) => {
+        const empty = !data?.prices || !Object.values(data.prices).some((byDate) => Object.keys(byDate).length > 0)
+        setState(empty ? { status: 'empty' } : { status: 'ready', data, meta: analyze(data) })
+      })
       .catch((err) => {
         if (err.name !== 'AbortError') setState({ status: 'error' })
       })
     return () => ctrl.abort()
-  }, [])
+  }, [attempt])
 
-  return state
+  const retry = () => {
+    setState({ status: 'loading' })
+    setAttempt((n) => n + 1)
+  }
+
+  return { ...state, retry }
 }
