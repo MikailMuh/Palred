@@ -93,7 +93,7 @@ export default function Home({ go, live }) {
                   <div className="strong">{c.name}</div>
                   <div className="muted small">per {c.unit}</div>
                 </div>
-                <div className="mono strong">Rp{angka(p.price)}</div>
+                <div className="mini-price">Rp{angka(p.price)}</div>
                 <span className={`chip ${diff >= 0 ? 'up' : 'down'}`}>
                   {diff >= 0 ? '▲' : '▼'} {Math.abs(diff).toFixed(1)}%
                 </span>

@@ -136,7 +136,7 @@ function Billboard({ data, meta }) {
                     <Produce type={r.icon} size={32} />
                     <span>{r.name}</span>
                   </span>
-                  {r.current != null ? <span className="r led">{angka(r.current)}</span> : <span className="r no-data">belum ada data</span>}
+                  {r.current != null ? <span className="r led"><small>Rp</small>{angka(r.current)}</span> : <span className="r no-data">belum ada data</span>}
                   {r.diff == null ? (
                     <span className="r delta flat">–</span>
                   ) : (
@@ -171,7 +171,7 @@ function Billboard({ data, meta }) {
               </div>
             )}
             {selCurrent != null ? (
-              <div className="big-price mono">Rp{angka(selCurrent)}</div>
+              <div className="big-price mono"><small>Rp</small>{angka(selCurrent)}</div>
             ) : (
               <div className="big-price no-data-lg">Belum ada data untuk {provName} pada {formatTanggal(latest)}</div>
             )}
