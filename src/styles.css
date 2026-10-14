@@ -345,3 +345,5 @@ button.board-row:hover { background: #1c3529; }
 .mini-price { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.2rem; color: var(--forest); white-space: nowrap; }
 .mini-row .grow .strong { font-weight: 500; }
 .cat-price { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1rem; color: var(--forest); }
+.cek-harga .form-grid > .field { min-width: 0; }
+.cek-harga .select, .cek-harga .field input { width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; }
