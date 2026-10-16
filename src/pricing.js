@@ -1,5 +1,5 @@
 import { packPrice, retailPrice } from './data.js'
-import { referencePrice, usePriceData } from './prices.js'
+import { referencePrice, usePriceData, valueAt } from './prices.js'
 
 // provName kosong = rata-rata nasional. Satu hook dipakai Jastip, Paket Masak, dan Home supaya angkanya sama.
 export function usePricing(provName) {
@@ -12,5 +12,13 @@ export function usePricing(provName) {
 
   const retailFor = (recipe, portions) => (ready ? retailPrice(recipe, portions, priceOf) : null)
 
-  return { status: state.status, retry: state.retry, date: ready ? state.meta.latest : null, priceOf, refOf, packFor, retailFor }
+  // Selisih rata-rata nasional vs hari data sebelumnya, dalam persen. null kalau salah satu hari tidak ada datanya.
+  const changeOf = (key) => {
+    if (!ready || !state.meta.previous) return null
+    const now = valueAt(state.data, key, state.meta.latest, '')
+    const before = valueAt(state.data, key, state.meta.previous, '')
+    return now != null && before != null ? ((now - before) / before) * 100 : null
+  }
+
+  return { status: state.status, retry: state.retry, date: ready ? state.meta.latest : null, priceOf, refOf, packFor, retailFor, changeOf }
 }

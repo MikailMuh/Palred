@@ -5,6 +5,7 @@ import { angka } from '../data.js'
 import { PRICE_GROUPS, daysSince, formatTanggal, isStale, seriesUntil, usePriceData, valueAt } from '../prices.js'
 
 const CATEGORIES = ['Semua', 'Bumbu', 'Protein', 'Sembako']
+const PROV_PREVIEW = 10
 
 const persen = (n) => Math.abs(n).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
@@ -19,7 +20,7 @@ export default function Harga() {
         <p className="muted">Patokan rata-rata harga di pasar tradisional tiap provinsi. Sumber: PIHPS Bank Indonesia.</p>
       </header>
 
-      {state.status === 'loading' && <p role="status" className="muted">Memuat data harga…</p>}
+      {state.status === 'loading' && <div role="status" className="board-skeleton">Memuat data harga…</div>}
       {state.status === 'error' && (
         <div role="alert" className="card pad status-box">
           <strong>Data harga gagal dimuat.</strong>
@@ -45,6 +46,7 @@ function Billboard({ data, meta }) {
   const [selectedGroup, setSelectedGroup] = useState('cabai-merah')
   const [variants, setVariants] = useState({})
   const [provId, setProvId] = useState('')
+  const [showAllProv, setShowAllProv] = useState(false)
 
   const provName = provId ? provinces.find((p) => p.id === provId).name : 'Rata-rata nasional'
 
@@ -68,6 +70,7 @@ function Billboard({ data, meta }) {
     .map((p) => ({ ...p, value: valueAt(data, selKey, latest, p.id) }))
     .sort((a, b) => (a.value ?? Infinity) - (b.value ?? Infinity))
   const maxCompare = Math.max(...compare.map((c) => c.value ?? 0))
+  const comparePreview = showAllProv ? compare : compare.filter((r, i) => i < PROV_PREVIEW || r.id === provId)
 
   const up = rows.filter((r) => r.diff > 0).length
   const down = rows.filter((r) => r.diff < 0).length
@@ -191,8 +194,8 @@ function Billboard({ data, meta }) {
             <p className="muted small">
               {data.commodities[selKey].name}, {formatTanggal(latest)}. Rata-rata nasional: Rp{angka(valueAt(data, selKey, latest, ''))}
             </p>
-            <ul className="bars bars-scroll" tabIndex={0} aria-label="Daftar harga per provinsi">
-              {compare.map((r) => (
+            <ul className="bars" aria-label="Daftar harga per provinsi">
+              {comparePreview.map((r) => (
                 <li key={r.id} className={r.id === provId ? 'me' : ''}>
                   <span className="bar-label">{r.name}</span>
                   <span className="bar-track">
@@ -202,6 +205,11 @@ function Billboard({ data, meta }) {
                 </li>
               ))}
             </ul>
+            {compare.length > PROV_PREVIEW && (
+              <button className="btn ghost sm bars-more" aria-expanded={showAllProv} onClick={() => setShowAllProv((v) => !v)}>
+                {showAllProv ? `Tampilkan ${PROV_PREVIEW} provinsi saja` : `Lihat semua ${compare.length} provinsi`}
+              </button>
+            )}
           </div>
 
           <div className="card pad note">

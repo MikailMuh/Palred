@@ -1,3 +1,4 @@
+import HeroPrices from '../components/HeroPrices.jsx'
 import { Billboard, Courier, Dish, HeroMarket, PackageBox, Produce } from '../components/Art.jsx'
 import { angka, commodities, recipes, rupiah } from '../data.js'
 import { usePricing } from '../pricing.js'
@@ -26,11 +27,7 @@ export default function Home({ go, live }) {
             <button className="btn primary" onClick={() => go('jastip')}>Mulai titip belanja</button>
             <button className="btn ghost" onClick={() => go('harga')}>Cek harga hari ini</button>
           </div>
-          <div className="stats">
-            <div><strong>120+</strong><span>pasar mitra</span></div>
-            <div><strong>3.400</strong><span>UMKM aktif</span></div>
-            <div><strong>±2 jam</strong><span>rata-rata antar</span></div>
-          </div>
+          <HeroPrices pricing={pricing} />
         </div>
         <div className="hero-art">
           <HeroMarket />

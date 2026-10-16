@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
 import { recipes, useLivePrices } from './data.js'
 import Home from './pages/Home.jsx'
-import Jastip from './pages/Jastip.jsx'
-import Harga from './pages/Harga.jsx'
-import Paket from './pages/Paket.jsx'
-import Keranjang from './pages/Keranjang.jsx'
-import Kebijakan from './pages/Kebijakan.jsx'
+
+const Jastip = lazy(() => import('./pages/Jastip.jsx'))
+const Harga = lazy(() => import('./pages/Harga.jsx'))
+const Paket = lazy(() => import('./pages/Paket.jsx'))
+const Keranjang = lazy(() => import('./pages/Keranjang.jsx'))
+const Kebijakan = lazy(() => import('./pages/Kebijakan.jsx'))
 
 const NAV = [
   { id: 'home', label: 'Beranda' },
@@ -97,12 +98,14 @@ export default function App() {
       </header>
 
       <main>
+        <Suspense fallback={<div className="page-loading container" role="status">Memuat halaman…</div>}>
         {page === 'home' && <Home go={go} live={live} />}
         {page === 'jastip' && <Jastip />}
         {page === 'harga' && <Harga />}
         {page === 'paket' && <Paket addToCart={addToCart} />}
         {page === 'kebijakan' && <Kebijakan go={go} />}
         {page === 'keranjang' && <Keranjang cart={cart} changeQty={changeQty} removeLine={removeLine} go={go} />}
+        </Suspense>
       </main>
 
       <footer className="footer">

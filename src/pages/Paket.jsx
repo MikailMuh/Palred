@@ -56,12 +56,12 @@ export default function Paket({ addToCart }) {
       <div className="grid-3">
         {list.map((r) => (
           <article key={r.id} className="card recipe-card">
-            <button className="dish-wrap" onClick={() => setOpen(r)} aria-label={`Lihat paket ${r.name}`}>
+            <button className="dish-wrap" onClick={() => setOpen(r)} aria-label={`${r.level}, lihat paket ${r.name}`}>
               <Dish {...r.dish} />
               <span className="level">{r.level}</span>
             </button>
             <div className="recipe-meta">
-              <h3>{r.name}</h3>
+              <h2 className="card-title">{r.name}</h2>
               <p className="muted small">{r.origin} · {r.minutes} menit · {r.ingredients.length} bahan</p>
               <div className="ing-icons">
                 {r.ingredients.map((i) => <Produce key={i.name} type={i.icon} size={26} />)}
