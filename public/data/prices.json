@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-10-15T15:11:20+07:00",
+ "updatedAt": "2026-10-16T15:05:00+07:00",
  "source": "PIHPS Bank Indonesia (pasar tradisional)",
  "commodities": {
   "beras-bawah-1": {
@@ -3231,6 +3231,131 @@
       "value": 18250.0
      }
     }
+   },
+   "2026-10-16": {
+    "national": 14900.0,
+    "provinces": {
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 12550.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 13000.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 13100.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 13150.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 13250.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 13450.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 13650.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 13700.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 13750.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 14250.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 14350.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 14450.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 14550.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 14650.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 14700.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 15000.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 15000.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 15050.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 15200.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 15350.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 15600.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 15700.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 15750.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 15750.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 16550.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 16600.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 16650.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 16750.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 17800.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 18250.0
+     }
+    }
    }
   },
   "beras-bawah-2": {
@@ -6376,6 +6501,131 @@
       "value": 18100.0
      }
     }
+   },
+   "2026-10-16": {
+    "national": 14650.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 12250.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 12400.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 12450.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 13250.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 13400.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 13450.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 13650.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 13700.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 13700.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 14050.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 14100.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 14100.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 14150.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 14250.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 14300.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 14650.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 14800.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 14800.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 14850.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 14950.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 15050.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 15250.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 15300.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 15500.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 15800.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 16150.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 16600.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 17500.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 17600.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 18100.0
+     }
+    }
    }
   },
   "beras-medium-1": {
@@ -9474,7 +9724,7 @@
     }
    },
    "2026-10-15": {
-    "national": 16650.0,
+    "national": 16600.0,
     "provinces": {
      "18": {
       "name": "Nusa Tenggara Barat",
@@ -9502,7 +9752,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 15500.0
+      "value": 15250.0
      },
      "2": {
       "name": "Sumatera Utara",
@@ -9594,6 +9844,135 @@
      },
      "34": {
       "name": "Papua Barat",
+      "value": 18000.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 18650.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 19550.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 19900.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 20450.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 16550.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 13650.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 14650.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 14850.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 14950.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 15400.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 15400.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 15500.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 15650.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 15750.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 15750.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 15850.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 16000.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 16050.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 16100.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 16150.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 16250.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 16300.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 16350.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 16550.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 16650.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 16900.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 16900.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 17050.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 17300.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 17400.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 17500.0
+     },
+     "32": {
+      "name": "Maluku Utara",
       "value": 18000.0
      },
      "3": {
@@ -12643,7 +13022,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 14950.0
+      "value": 14750.0
      },
      "19": {
       "name": "Nusa Tenggara Timur",
@@ -12736,6 +13115,131 @@
      "34": {
       "name": "Papua Barat",
       "value": 17300.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 18150.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 18450.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 19100.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 19250.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 23350.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 16350.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 12500.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 14500.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 14600.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 14750.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 14950.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 15150.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 15200.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 15200.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 15250.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 15750.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 15800.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 15850.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 15850.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 15850.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 16000.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 16150.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 16200.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 16250.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 16400.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 16400.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 16650.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 16750.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 16750.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 16900.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 17100.0
      },
      "24": {
       "name": "Kalimantan Utara",
@@ -15884,7 +16388,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 16550.0
+      "value": 16400.0
      },
      "2": {
       "name": "Sumatera Utara",
@@ -15965,6 +16469,135 @@
      "34": {
       "name": "Papua Barat",
       "value": 18900.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 19200.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 19450.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 19700.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 19750.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 21000.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 21350.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 26150.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 17900.0,
+    "provinces": {
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 15450.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 15500.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 15550.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 16300.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 16400.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 16400.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 16550.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 16650.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 16700.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 16750.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 16750.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 16900.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 17050.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 17150.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 17250.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 17450.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 17650.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 17650.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 17750.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 17900.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 18000.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 18000.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 18050.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 18250.0
      },
      "3": {
       "name": "Sumatera Barat",
@@ -19033,7 +19666,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 16150.0
+      "value": 16050.0
      },
      "12": {
       "name": "Jawa Barat",
@@ -19114,6 +19747,131 @@
      "34": {
       "name": "Papua Barat",
       "value": 18650.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 18750.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 18900.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 19950.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 20050.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 20200.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 22250.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 17300.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 14250.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 15450.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 15600.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 15750.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 15950.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 16050.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 16150.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 16450.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 16500.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 16550.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 16550.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 16550.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 16600.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 16900.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 16950.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 17050.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 17150.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 17150.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 17150.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 17450.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 17550.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 17650.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 17650.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 17800.0
      },
      "32": {
       "name": "Maluku Utara",
@@ -22286,7 +23044,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 38950.0
+      "value": 38700.0
      },
      "1": {
       "name": "Aceh",
@@ -22367,6 +23125,135 @@
      "34": {
       "name": "Papua Barat",
       "value": 50500.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 50900.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 51450.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 40900.0,
+    "provinces": {
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 31800.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 33100.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 35800.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 35900.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 37000.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 37500.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 37600.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 37900.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 38300.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 38500.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 38600.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 38750.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 38900.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 39000.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 39550.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 39600.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 40200.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 40750.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 40750.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 40850.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 41500.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 42400.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 43500.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 44250.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 44600.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 44750.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 46850.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 48150.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 48900.0
      },
      "3": {
       "name": "Sumatera Barat",
@@ -25475,7 +26362,7 @@
     }
    },
    "2026-10-15": {
-    "national": 152550.0,
+    "national": 152600.0,
     "provinces": {
      "19": {
       "name": "Nusa Tenggara Timur",
@@ -25511,7 +26398,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 144850.0
+      "value": 145750.0
      },
      "17": {
       "name": "Bali",
@@ -25607,6 +26494,135 @@
      },
      "34": {
       "name": "Papua Barat",
+      "value": 170000.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 172900.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 151650.0,
+    "provinces": {
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 121650.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 130650.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 137250.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 137500.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 141250.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 141650.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 142500.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 144400.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 144850.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 145450.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 149400.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 149400.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 150000.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 150000.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 151250.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 151900.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 154300.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 155000.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 155000.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 155000.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 157650.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 158750.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 160000.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 160000.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 160000.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 160000.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 162500.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 163150.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 167900.0
+     },
+     "1": {
+      "name": "Aceh",
       "value": 170000.0
      },
      "21": {
@@ -28548,7 +29564,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 133000.0
+      "value": 132800.0
      },
      "17": {
       "name": "Bali",
@@ -28657,6 +29673,127 @@
      "23": {
       "name": "Kalimantan Timur",
       "value": 167500.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 143400.0,
+    "provinces": {
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 118350.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 125000.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 126900.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 133000.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 133250.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 133500.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 133750.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 135000.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 137250.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 137500.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 137500.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 139400.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 140000.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 142500.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 143350.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 143750.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 144050.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 145950.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 148450.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 149400.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 150000.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 150000.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 155000.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 155650.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 156250.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 156250.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 156500.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 165000.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 166250.0
      }
     }
    }
@@ -31765,7 +32902,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 24750.0
+      "value": 24700.0
      },
      "15": {
       "name": "DI Yogyakarta",
@@ -31882,6 +33019,135 @@
      "34": {
       "name": "Papua Barat",
       "value": 34950.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 35200.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 38200.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 41250.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 29500.0,
+    "provinces": {
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 24600.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 24700.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 25000.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 25100.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 25800.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 25850.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 25900.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 25900.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 27000.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 28150.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 28400.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 28700.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 28800.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 28800.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 28800.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 29000.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 29550.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 29600.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 29750.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 29750.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 29850.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 30500.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 30550.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 30550.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 31250.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 32400.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 32500.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 33300.0
      },
      "31": {
       "name": "Maluku",
@@ -35014,7 +36280,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 29200.0
+      "value": 29100.0
      },
      "3": {
       "name": "Sumatera Barat",
@@ -35131,6 +36397,135 @@
      "33": {
       "name": "Papua",
       "value": 61950.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 36700.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 22650.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 28150.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 28250.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 28600.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 29150.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 29400.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 29900.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 30850.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 31150.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 31750.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 32350.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 32750.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 33750.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 35400.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 35400.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 36750.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 37500.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 37650.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 38500.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 38550.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 39000.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 39400.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 40100.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 40650.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 40850.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 41250.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 41250.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 43750.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 44150.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 57500.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 61700.0
      }
     }
    }
@@ -38231,7 +39626,7 @@
     }
    },
    "2026-10-15": {
-    "national": 38650.0,
+    "national": 38600.0,
     "provinces": {
      "5": {
       "name": "Kepulauan Riau",
@@ -38239,7 +39634,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 29800.0
+      "value": 29250.0
      },
      "17": {
       "name": "Bali",
@@ -38360,6 +39755,135 @@
      "34": {
       "name": "Papua Barat",
       "value": 51250.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 54400.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 57500.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 38300.0,
+    "provinces": {
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 29450.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 29800.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 31200.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 31750.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 33000.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 33250.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 33650.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 33750.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 34000.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 34600.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 36000.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 36200.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 36250.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 36400.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 37000.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 37100.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 37500.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 37850.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 38750.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 38750.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 39150.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 39400.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 40750.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 40850.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 41900.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 43250.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 43750.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 43950.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 45650.0
      },
      "33": {
       "name": "Papua",
@@ -40852,7 +42376,7 @@
     }
    },
    "2026-10-15": {
-    "national": 74750.0,
+    "national": 74850.0,
     "provinces": {
      "1": {
       "name": "Aceh",
@@ -40860,7 +42384,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 43800.0
+      "value": 46150.0
      },
      "18": {
       "name": "Nusa Tenggara Barat",
@@ -40961,6 +42485,107 @@
      "32": {
       "name": "Maluku Utara",
       "value": 155000.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 72000.0,
+    "provinces": {
+     "1": {
+      "name": "Aceh",
+      "value": 42000.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 42650.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 44400.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 50850.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 54150.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 54450.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 57350.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 62500.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 62600.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 62850.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 65000.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 68350.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 68750.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 70750.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 72600.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 73150.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 75400.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 80400.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 83750.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 84450.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 97100.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 102250.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 102500.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 150000.0
      }
     }
    }
@@ -44061,7 +45686,7 @@
     }
    },
    "2026-10-15": {
-    "national": 87200.0,
+    "national": 87250.0,
     "provinces": {
      "19": {
       "name": "Nusa Tenggara Timur",
@@ -44073,7 +45698,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 55300.0
+      "value": 56500.0
      },
      "17": {
       "name": "Bali",
@@ -44198,6 +45823,135 @@
      "20": {
       "name": "Kalimantan Barat",
       "value": 151250.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 83850.0,
+    "provinces": {
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 50000.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 54050.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 54700.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 60200.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 63600.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 65650.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 68550.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 69900.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 71150.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 71250.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 72250.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 72600.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 77400.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 77500.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 78400.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 78650.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 78650.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 82250.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 88150.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 90000.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 92500.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 92550.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 94150.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 95650.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 97100.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 100000.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 102500.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 115650.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 123750.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 126250.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 134500.0
      }
     }
    }
@@ -47122,7 +48876,7 @@
     }
    },
    "2026-10-15": {
-    "national": 79750.0,
+    "national": 79700.0,
     "provinces": {
      "18": {
       "name": "Nusa Tenggara Barat",
@@ -47130,7 +48884,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 40750.0
+      "value": 39450.0
      },
      "19": {
       "name": "Nusa Tenggara Timur",
@@ -47247,6 +49001,131 @@
      "32": {
       "name": "Maluku Utara",
       "value": 162500.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 180000.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 78000.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 40000.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 40550.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 42500.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 47500.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 48000.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 49350.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 50000.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 55150.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 58250.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 59150.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 59450.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 65000.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 65250.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 68150.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 69000.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 72950.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 74900.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 75850.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 76250.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 80000.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 83150.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 83400.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 87500.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 89600.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 93350.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 105400.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 115000.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 150650.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 155000.0
      },
      "29": {
       "name": "Sulawesi Utara",
@@ -50179,7 +52058,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 58100.0
+      "value": 58450.0
      },
      "17": {
       "name": "Bali",
@@ -50300,6 +52179,127 @@
      "34": {
       "name": "Papua Barat",
       "value": 162500.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 100550.0,
+    "provinces": {
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 55650.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 55800.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 63500.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 63800.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 70500.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 71150.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 71250.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 74500.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 75600.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 78500.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 81850.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 82150.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 84400.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 85000.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 89150.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 96250.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 98350.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 98750.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 101250.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 106650.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 117500.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 122500.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 142500.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 145000.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 145150.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 152100.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 155000.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 160000.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 172500.0
      }
     }
    }
@@ -53224,7 +55224,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 21350.0
+      "value": 21450.0
      },
      "12": {
       "name": "Jawa Barat",
@@ -53249,6 +55249,127 @@
      "23": {
       "name": "Kalimantan Timur",
       "value": 22700.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 22700.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 22850.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 24000.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 20400.0,
+    "provinces": {
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 16900.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 17000.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 17650.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 18250.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 18550.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 18900.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 19000.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 19500.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 19600.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 19850.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 19900.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 20000.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 20000.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 20250.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 20450.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 20500.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 20500.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 20750.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 20800.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 21300.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 21600.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 21700.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 21950.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 22000.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 22000.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 22450.0
      },
      "33": {
       "name": "Papua",
@@ -56500,6 +58621,135 @@
       "value": 31450.0
      }
     }
+   },
+   "2026-10-16": {
+    "national": 24300.0,
+    "provinces": {
+     "11": {
+      "name": "Banten",
+      "value": 18900.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 21350.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 21400.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 21900.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 22850.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 22900.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 22900.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 22950.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 23000.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 23150.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 23350.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 23500.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 23600.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 23750.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 24000.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 24000.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 24150.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 24350.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 24400.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 24500.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 24500.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 24500.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 24750.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 25050.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 25200.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 26350.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 26400.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 27000.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 27500.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 29900.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 31450.0
+     }
+    }
    }
   },
   "minyak-kemasan-2": {
@@ -59622,7 +61872,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 22150.0
+      "value": 22250.0
      },
      "14": {
       "name": "Jawa Tengah",
@@ -59735,6 +61985,135 @@
      "25": {
       "name": "Gorontalo",
       "value": 31100.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 23650.0,
+    "provinces": {
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 19400.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 20150.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 21350.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 21500.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 22150.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 22250.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 22600.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 22650.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 22850.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 23000.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 23100.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 23200.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 23200.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 23250.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 23250.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 23250.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 23250.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 23400.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 23650.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 23750.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 24300.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 24350.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 24350.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 24400.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 24400.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 24650.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 25150.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 25400.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 26750.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 27050.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 31800.0
      }
     }
    }
@@ -62763,7 +65142,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 18950.0
+      "value": 18850.0
      },
      "18": {
       "name": "Nusa Tenggara Barat",
@@ -62880,6 +65259,135 @@
      "34": {
       "name": "Papua Barat",
       "value": 23500.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 26800.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 20500.0,
+    "provinces": {
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 17500.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 18900.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 18950.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 19000.0
+     },
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 19150.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 19250.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 19250.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 19250.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 19350.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 19400.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 19450.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 19600.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 19750.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 19800.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 19900.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 20000.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 20250.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 20250.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 20350.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 20400.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 20400.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 20500.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 20750.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 21650.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 22000.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 22000.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 22900.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 23000.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 23000.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 23400.0
      },
      "33": {
       "name": "Papua",
@@ -65992,7 +68500,7 @@
      },
      "16": {
       "name": "Jawa Timur",
-      "value": 17950.0
+      "value": 17850.0
      },
      "17": {
       "name": "Bali",
@@ -66113,6 +68621,135 @@
      "25": {
       "name": "Gorontalo",
       "value": 20750.0
+     },
+     "32": {
+      "name": "Maluku Utara",
+      "value": 21000.0
+     },
+     "33": {
+      "name": "Papua",
+      "value": 22100.0
+     }
+    }
+   },
+   "2026-10-16": {
+    "national": 19300.0,
+    "provinces": {
+     "5": {
+      "name": "Kepulauan Riau",
+      "value": 15750.0
+     },
+     "16": {
+      "name": "Jawa Timur",
+      "value": 17950.0
+     },
+     "17": {
+      "name": "Bali",
+      "value": 18100.0
+     },
+     "14": {
+      "name": "Jawa Tengah",
+      "value": 18300.0
+     },
+     "9": {
+      "name": "Kepulauan Bangka Belitung",
+      "value": 18450.0
+     },
+     "30": {
+      "name": "Sulawesi Barat",
+      "value": 18600.0
+     },
+     "8": {
+      "name": "Sumatera Selatan",
+      "value": 18650.0
+     },
+     "15": {
+      "name": "DI Yogyakarta",
+      "value": 18750.0
+     },
+     "26": {
+      "name": "Sulawesi Selatan",
+      "value": 18750.0
+     },
+     "10": {
+      "name": "Lampung",
+      "value": 18850.0
+     },
+     "12": {
+      "name": "Jawa Barat",
+      "value": 18850.0
+     },
+     "6": {
+      "name": "Jambi",
+      "value": 18900.0
+     },
+     "18": {
+      "name": "Nusa Tenggara Barat",
+      "value": 19000.0
+     },
+     "21": {
+      "name": "Kalimantan Selatan",
+      "value": 19200.0
+     },
+     "7": {
+      "name": "Bengkulu",
+      "value": 19250.0
+     },
+     "3": {
+      "name": "Sumatera Barat",
+      "value": 19400.0
+     },
+     "11": {
+      "name": "Banten",
+      "value": 19400.0
+     },
+     "27": {
+      "name": "Sulawesi Tenggara",
+      "value": 19400.0
+     },
+     "2": {
+      "name": "Sumatera Utara",
+      "value": 19450.0
+     },
+     "13": {
+      "name": "DKI Jakarta",
+      "value": 19550.0
+     },
+     "19": {
+      "name": "Nusa Tenggara Timur",
+      "value": 19600.0
+     },
+     "1": {
+      "name": "Aceh",
+      "value": 19650.0
+     },
+     "23": {
+      "name": "Kalimantan Timur",
+      "value": 19700.0
+     },
+     "22": {
+      "name": "Kalimantan Tengah",
+      "value": 19900.0
+     },
+     "31": {
+      "name": "Maluku",
+      "value": 19900.0
+     },
+     "24": {
+      "name": "Kalimantan Utara",
+      "value": 20000.0
+     },
+     "28": {
+      "name": "Sulawesi Tengah",
+      "value": 20150.0
+     },
+     "29": {
+      "name": "Sulawesi Utara",
+      "value": 20250.0
+     },
+     "25": {
+      "name": "Gorontalo",
+      "value": 21000.0
      },
      "32": {
       "name": "Maluku Utara",
