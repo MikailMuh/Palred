@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
 import { recipes, useLivePrices } from './data.js'
 import Home from './pages/Home.jsx'
+import { PriceDataContext, useFetchPriceData } from './prices.js'
 
 const Jastip = lazy(() => import('./pages/Jastip.jsx'))
 const Harga = lazy(() => import('./pages/Harga.jsx'))
@@ -24,6 +25,7 @@ const pageFromPath = (path) => {
 }
 
 export default function App() {
+  const priceData = useFetchPriceData()
   const [page, setPage] = useState(() => pageFromPath(window.location.pathname))
   const [regionId] = useState('jkt')
   const [cart, setCart] = useState([])
@@ -73,6 +75,7 @@ export default function App() {
   const cartCount = cart.reduce((n, l) => n + l.qty, 0)
 
   return (
+    <PriceDataContext.Provider value={priceData}>
     <div className="app">
       <header className="topbar">
         <div className="container topbar-inner">
@@ -132,5 +135,6 @@ export default function App() {
         </div>
       )}
     </div>
+    </PriceDataContext.Provider>
   )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
 
@@ -83,7 +83,11 @@ export const daysSince = (iso) => {
 
 export const isStale = (iso) => daysSince(iso) > STALE_AFTER_DAYS
 
-export function usePriceData() {
+export const PriceDataContext = createContext({ status: 'loading', retry: () => {} })
+
+export const usePriceData = () => useContext(PriceDataContext)
+
+export function useFetchPriceData() {
   const [state, setState] = useState({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
 

@@ -93,6 +93,7 @@ export default function Jastip() {
           {pricing.status === 'error' && <button className="btn ghost" onClick={pricing.retry}>Muat ulang data harga</button>}
         </div>
       )}
+      {pricing.status === 'loading' && <p className="small data-date data-date-loading" aria-hidden="true" />}
       {pricing.date && (
         <p className="small muted data-date">
           Harga bertanda PIHPS = patokan rata-rata {REGION} per {formatTanggal(pricing.date)} dari PIHPS Bank Indonesia. Bertanda estimasi = perkiraan kami, bukan data resmi.
