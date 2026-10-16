@@ -1,5 +1,7 @@
+import { Sparkline } from './Art.jsx'
 import { rupiah } from '../data.js'
 import { formatTanggal } from '../prices.js'
+import { useCountUp } from '../useCountUp.js'
 
 const ITEMS = [
   { key: 'cabai-merah-keriting', label: 'Cabai merah keriting' },
@@ -8,6 +10,23 @@ const ITEMS = [
 ]
 
 const persen = (n) => Math.abs(n).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+
+function HeroPrice({ label, price, diff, series }) {
+  const shown = useCountUp(price)
+  const dir = diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat'
+  return (
+    <div>
+      <dt>{label}</dt>
+      <dd>
+        <span className="price-now">{rupiah(shown)}</span>
+        {diff != null && (
+          <span className={`chip ${dir}`}>{diff > 0 ? '▲' : diff < 0 ? '▼' : '■'} {persen(diff)}%</span>
+        )}
+        <Sparkline data={series} w={88} h={26} up={diff > 0} tone="light" />
+      </dd>
+    </div>
+  )
+}
 
 export default function HeroPrices({ pricing }) {
   if (pricing.status === 'loading') return <p className="hero-prices muted small" role="status">Memuat harga hari ini…</p>
@@ -18,23 +37,11 @@ export default function HeroPrices({ pricing }) {
       <dl>
         {ITEMS.map(({ key, label }) => {
           const price = pricing.priceOf(key)
-          const diff = pricing.changeOf(key)
           if (price == null) return null
-          const dir = diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat'
-          return (
-            <div key={key}>
-              <dt>{label}</dt>
-              <dd>
-                <span className="price-now">{rupiah(price)}</span>
-                {diff != null && (
-                  <span className={`chip ${dir}`}>{diff > 0 ? '▲' : diff < 0 ? '▼' : '■'} {persen(diff)}%</span>
-                )}
-              </dd>
-            </div>
-          )
+          return <HeroPrice key={key} label={label} price={price} diff={pricing.changeOf(key)} series={pricing.seriesOf(key)} />
         })}
       </dl>
-      <p className="muted small no-m">Rata-rata nasional per {formatTanggal(pricing.date)} · PIHPS Bank Indonesia</p>
+      <p className="muted small no-m">Rata-rata nasional per {formatTanggal(pricing.date)} · PIHPS Bank Indonesia. Garis kecil = 14 hari terakhir.</p>
     </div>
   )
 }

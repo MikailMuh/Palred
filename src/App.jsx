@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
+import ThemeToggle from './components/ThemeToggle.jsx'
 import { recipes, useLivePrices } from './data.js'
 import Home from './pages/Home.jsx'
 import { PriceDataContext, useFetchPriceData } from './prices.js'
@@ -90,6 +91,8 @@ export default function App() {
               </button>
             ))}
           </nav>
+          <div className="topbar-actions">
+          <ThemeToggle />
           <button className="cart-btn" aria-label={`Keranjang, ${cartCount} item`} onClick={() => go('keranjang')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 7h12l-1 13H7z" />
@@ -97,6 +100,7 @@ export default function App() {
             </svg>
             {cartCount > 0 && <span className="badge">{cartCount}</span>}
           </button>
+          </div>
         </div>
       </header>
 

@@ -68,7 +68,7 @@ export default function Paket({ addToCart }) {
               </div>
               <div className="row between">
                 <div>
-                  <div className="price">{pricing.packFor(r, 2) ? rupiah(pricing.packFor(r, 2).total) : 'Belum tersedia'}</div>
+                  <div className="price">{pricing.packFor(r, 2) ? rupiah(pricing.packFor(r, 2).total) : pricing.status === 'loading' ? <span className="skeleton skeleton-price" aria-hidden="true" /> : 'Belum tersedia'}</div>
                   <div className="muted small">perkiraan, 2 porsi</div>
                 </div>
                 <button className="btn primary sm" onClick={() => setOpen(r)}>Pilih</button>

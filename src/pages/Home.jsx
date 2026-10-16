@@ -1,11 +1,14 @@
 import HeroPrices from '../components/HeroPrices.jsx'
+import Movers from '../components/Movers.jsx'
 import { Billboard, Courier, Dish, HeroMarket, PackageBox, Produce } from '../components/Art.jsx'
 import { angka, commodities, recipes, rupiah } from '../data.js'
 import { usePricing } from '../pricing.js'
+import { useReveal } from '../useReveal.js'
 
 export default function Home({ go, live }) {
   const { prices, region } = live
   const pricing = usePricing()
+  useReveal()
 
   return (
     <>
@@ -34,14 +37,14 @@ export default function Home({ go, live }) {
         </div>
       </section>
 
-      <section className="container section">
+      <section className="container section" data-reveal>
         <div className="section-head">
           <h2>Tiga cara Palred bantu dapurmu</h2>
           <p className="muted">Satu platform, dari pasar sampai kompor.</p>
         </div>
         <div className="features">
           <Feature
-            color="var(--red-soft)"
+            color="var(--tint-red)"
             art={<Courier />}
             tag="01 · Jastip"
             title="Jastip dari pasar ke UMKM"
@@ -50,7 +53,7 @@ export default function Home({ go, live }) {
             onClick={() => go('jastip')}
           />
           <Feature
-            color="var(--forest-soft)"
+            color="var(--tint-green)"
             art={<Billboard />}
             tag="02 · Billboard"
             title="Harga realtime per daerah"
@@ -59,7 +62,7 @@ export default function Home({ go, live }) {
             onClick={() => go('harga')}
           />
           <Feature
-            color="var(--yellow-soft)"
+            color="var(--tint-yellow)"
             art={<PackageBox items={['daging', 'kelapa', 'cabai', 'bawang']} label="Paket Rendang" />}
             tag="03 · Paket"
             title="Paket bahan per masakan"
@@ -70,7 +73,11 @@ export default function Home({ go, live }) {
         </div>
       </section>
 
-      <section className="container section split">
+      <section className="container section" data-reveal>
+        <Movers pricing={pricing} />
+      </section>
+
+      <section className="container section split" data-reveal>
         <div>
           <span className="eyebrow">Harga hari ini · {region.name}</span>
           <h2>Pantau sebelum belanja</h2>
@@ -100,7 +107,7 @@ export default function Home({ go, live }) {
         </div>
       </section>
 
-      <section className="container section">
+      <section className="container section" data-reveal>
         <div className="section-head">
           <h2>Cara kerja jastip</h2>
         </div>
@@ -120,7 +127,7 @@ export default function Home({ go, live }) {
         </ol>
       </section>
 
-      <section className="container section">
+      <section className="container section" data-reveal>
         <div className="section-head row between">
           <div>
             <h2>Paket masak terlaris</h2>
@@ -142,7 +149,7 @@ export default function Home({ go, live }) {
         </div>
       </section>
 
-      <section className="container section">
+      <section className="container section" data-reveal>
         <div className="cta-band">
           <div>
             <h2>Punya warung atau katering?</h2>

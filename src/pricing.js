@@ -1,5 +1,5 @@
 import { packPrice, retailPrice } from './data.js'
-import { referencePrice, usePriceData, valueAt } from './prices.js'
+import { referencePrice, seriesUntil, usePriceData, valueAt } from './prices.js'
 
 // provName kosong = rata-rata nasional. Satu hook dipakai Jastip, Paket Masak, dan Home supaya angkanya sama.
 export function usePricing(provName) {
@@ -20,5 +20,9 @@ export function usePricing(provName) {
     return now != null && before != null ? ((now - before) / before) * 100 : null
   }
 
-  return { status: state.status, retry: state.retry, date: ready ? state.meta.latest : null, priceOf, refOf, packFor, retailFor, changeOf }
+  // Harga rata-rata nasional beberapa hari terakhir, untuk sparkline.
+  const seriesOf = (key, days = 14) => (ready ? seriesUntil(state.data, key, state.meta.latest, '').slice(-days).map((p) => p.value) : [])
+  const nameOf = (key) => (ready ? state.data.commodities?.[key]?.name : undefined)
+
+  return { status: state.status, retry: state.retry, date: ready ? state.meta.latest : null, priceOf, refOf, packFor, retailFor, changeOf, seriesOf, nameOf }
 }

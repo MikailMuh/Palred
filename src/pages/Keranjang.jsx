@@ -1,4 +1,4 @@
-import { Dish } from '../components/Art.jsx'
+import { Dish, PackageBox } from '../components/Art.jsx'
 import { recipes, rupiah } from '../data.js'
 import { formatTanggal } from '../prices.js'
 import { usePricing } from '../pricing.js'
@@ -22,7 +22,8 @@ export default function Keranjang({ cart, changeQty, removeLine, go }) {
       </header>
 
       {cart.length === 0 ? (
-        <div className="card pad status-box">
+        <div className="card pad status-box empty-cart">
+          <div className="empty-art"><PackageBox items={['bawang', 'cabai', 'tomat', 'sayur']} label="Paket kosong" /></div>
           <strong>Keranjangmu masih kosong.</strong>
           <p className="muted small">Pilih paket masak dulu, nanti muncul di sini.</p>
           <button className="btn primary" onClick={() => go('paket')}>Lihat paket masak</button>

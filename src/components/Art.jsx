@@ -315,7 +315,7 @@ export function Logo({ size = 32 }) {
   )
 }
 
-export function Sparkline({ data, w = 96, h = 28, up }) {
+export function Sparkline({ data, w = 96, h = 28, up, tone = 'dark' }) {
   if (!data || data.length < 2) return null
   const min = Math.min(...data)
   const max = Math.max(...data)
@@ -325,7 +325,15 @@ export function Sparkline({ data, w = 96, h = 28, up }) {
     .join(' ')
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
-      <polyline points={pts} fill="none" stroke={up ? '#FF7A62' : '#8FD18B'} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+      <polyline
+        points={pts}
+        fill="none"
+        stroke={tone === 'dark' ? (up ? '#FF7A62' : '#8FD18B') : undefined}
+        style={tone === 'dark' ? undefined : { stroke: up ? 'var(--spark-up)' : 'var(--spark-down)' }}
+        strokeWidth="2"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }

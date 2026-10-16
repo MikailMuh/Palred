@@ -131,7 +131,7 @@ export default function Jastip() {
                     <div className="grow">
                       <div className="strong small">{c.name}</div>
                       <div className="small muted">
-                        {unavailable ? 'harga belum tersedia' : <><span className="cat-price">Rp{angka(price)}</span>/{c.unit}</>}
+                        {unavailable ? (pricing.status === 'loading' ? <span className="skeleton skeleton-line" aria-hidden="true" /> : 'harga belum tersedia') : <><span className="cat-price">Rp{angka(price)}</span>/{c.unit}</>}
                         {!unavailable && <span className="tag-est">{c.pihpsKey ? (ref.fallback ? 'PIHPS, rata-rata nasional' : 'PIHPS') : 'estimasi'}</span>}
                       </div>
                     </div>
