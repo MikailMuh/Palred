@@ -7,6 +7,12 @@ import { usePricing } from '../pricing.js'
 // Pasar di daftar semuanya di Jakarta, jadi patokan harga memakai DKI Jakarta (fallback rata-rata nasional kalau kosong).
 const REGION = 'DKI Jakarta'
 
+const IF_OUT = [
+  { id: 'ganti', label: 'Ganti yang mirip', note: 'Tim membeli barang pengganti yang sepadan.' },
+  { id: 'lewati', label: 'Lewati saja', note: 'Barang itu tidak dibeli dan tidak ditagih.' },
+  { id: 'hubungi', label: 'Hubungi saya dulu', note: 'Tim bertanya lewat WhatsApp sebelum membeli apa pun.' },
+]
+
 const PHONE_PATTERN = /^(\+62|62|0)8\d{8,11}$/
 
 function validate(form) {
@@ -25,6 +31,7 @@ export default function Jastip() {
   const [qty, setQty] = useState({})
   const [custom, setCustom] = useState('')
   const [slot, setSlot] = useState(slots[1])
+  const [ifOut, setIfOut] = useState('hubungi')
   const [form, setForm] = useState({ nama: '', alamat: '', hp: '' })
   const [submitted, setSubmitted] = useState(false)
   const [ordered, setOrdered] = useState(false)
@@ -55,7 +62,7 @@ export default function Jastip() {
   if (ordered) {
     return (
       <Ringkasan
-        order={{ market: m, slot, form, custom, lines, subtotal, jasa, ongkir, total }}
+        order={{ market: m, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, total }}
         pricingDate={pricing.date}
         onBack={() => setOrdered(false)}
         onReset={() => {
@@ -63,6 +70,7 @@ export default function Jastip() {
           setSubmitted(false)
           setQty({})
           setCustom('')
+          setIfOut('hubungi')
           setForm({ nama: '', alamat: '', hp: '' })
         }}
       />
@@ -74,7 +82,7 @@ export default function Jastip() {
       <header className="page-head">
         <span className="eyebrow">Jastip Pasar</span>
         <h1>Titip belanja pasar, antar ke dapurmu</h1>
-        <p className="muted">Harga di katalog adalah patokan, harga final sesuai struk pasar.</p>
+        <p className="muted">Harga di katalog adalah patokan, harga final sesuai struk pasar. <a className="link-btn" href="/kebijakan" target="_blank" rel="noopener">Baca kebijakan Jastip</a></p>
       </header>
 
       {pricing.status === 'loading' && <p role="status" className="muted">Memuat harga bahan…</p>}
@@ -144,6 +152,15 @@ export default function Jastip() {
                 onChange={(e) => setCustom(e.target.value)}
               />
             </label>
+            <div className="field">
+              <span>Kalau barang kosong di pasar</span>
+              <div className="chips">
+                {IF_OUT.map((o) => (
+                  <button key={o.id} className={`chip-btn ${ifOut === o.id ? 'active' : ''}`} aria-pressed={ifOut === o.id} onClick={() => setIfOut(o.id)}>{o.label}</button>
+                ))}
+              </div>
+              <small className="muted">{IF_OUT.find((o) => o.id === ifOut).note}</small>
+            </div>
           </div>
 
           <div className="card pad">
@@ -205,7 +222,7 @@ export default function Jastip() {
 }
 
 function Ringkasan({ order, pricingDate, onBack, onReset }) {
-  const { market, slot, form, custom, lines, subtotal, jasa, ongkir, total } = order
+  const { market, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, total } = order
   return (
     <section className="container page">
       <header className="page-head">
@@ -225,6 +242,7 @@ function Ringkasan({ order, pricingDate, onBack, onReset }) {
               <div><dt>Alamat antar</dt><dd>{form.alamat}</dd></div>
               <div><dt>Pasar</dt><dd>{market.name}, {market.area}</dd></div>
               <div><dt>Slot antar besok</dt><dd>{slot}</dd></div>
+              <div><dt>Kalau barang kosong</dt><dd>{IF_OUT.find((o) => o.id === ifOut).label}</dd></div>
             </dl>
           </div>
           {custom && (

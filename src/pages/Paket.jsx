@@ -87,6 +87,8 @@ function Detail({ recipe, pricing, onClose, addToCart }) {
   const [portions, setPortions] = useState(2)
   const scale = portions / 2
   const pack = pricing.packFor(recipe, portions)
+  const retail = pricing.retailFor(recipe, portions)
+  const saving = pack && retail ? retail - pack.total : 0
 
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -131,6 +133,22 @@ function Detail({ recipe, pricing, onClose, addToCart }) {
               </li>
             ))}
           </ul>
+
+          {saving > 0 && (
+            <div className="compare" role="note">
+              <div className="row between">
+                <span>Beli eceran sendiri<span className="tag-est">estimasi</span></span>
+                <span className="mono">{rupiah(retail)}</span>
+              </div>
+              <div className="row between">
+                <span>Paket ini</span>
+                <span className="mono">{rupiah(pack.total)}</span>
+              </div>
+              <p className="muted small">
+                Eceran dihitung dari pembelian minimum per bahan yang kami perkirakan (misalnya ayam 500 g), jadi ada bahan yang tersisa. Harga paket belum termasuk ongkir dan biaya jasa.
+              </p>
+            </div>
+          )}
 
           <div className="pack-note">
             <div className="pack-mini"><PackageBox items={recipe.ingredients.map((i) => i.icon)} label={recipe.name} /></div>

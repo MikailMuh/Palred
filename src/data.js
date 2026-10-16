@@ -151,6 +151,38 @@ export function packPrice(recipe, portions, priceOf) {
   return { total: round(pihps + estimate), pihps: round(pihps), estimate: round(estimate) }
 }
 
+// Pembelian minimum eceran per bahan PIHPS, dalam gram. ESTIMASI kami, belum divalidasi ke pedagang.
+// TODO: validasi ke domain expert atau pedagang pasar sebelum angka selisih dipakai sebagai klaim.
+export const RETAIL_MIN_GRAMS = {
+  'daging-ayam': 500,
+  'daging-sapi-1': 250,
+  'telur-ayam': 60,
+  'bawang-merah': 250,
+  'bawang-putih': 100,
+  'cabai-merah-keriting': 100,
+  'cabai-rawit-merah': 100,
+  'beras-medium-1': 1000,
+  'minyak-curah': 500,
+  'gula-lokal': 500,
+}
+
+// Biaya kalau bahan dibeli sendiri per kemasan minimum eceran. Bahan non-PIHPS memakai estimasi yang sama dengan paket.
+export function retailPrice(recipe, portions, priceOf) {
+  let total = 0
+  for (const ing of recipe.ingredients) {
+    if (!ing.pihpsKey) {
+      total += (ing.estPrice * portions) / 2
+      continue
+    }
+    const value = priceOf(ing.pihpsKey)
+    const min = RETAIL_MIN_GRAMS[ing.pihpsKey]
+    if (value == null || !min) return null
+    const grams = (ing.unit === 'butir' ? ing.qty * ing.gramsEach : ing.unit === 'ml' ? ing.qty * ing.gramsPerMl : ing.qty) * (portions / 2)
+    total += (Math.ceil(grams / min) * min * value) / 1000
+  }
+  return Math.round(total / 100) * 100
+}
+
 // Simulasi feed harga realtime: tiap tick beberapa komoditas bergeser sedikit.
 const HISTORY = 24
 

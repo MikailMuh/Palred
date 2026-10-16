@@ -347,3 +347,11 @@ button.board-row:hover { background: #1c3529; }
 .cat-price { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1rem; color: var(--forest); }
 .cek-harga .form-grid > .field { min-width: 0; }
 .cek-harga .select, .cek-harga .field input { width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; }
+
+.compare { display: grid; gap: 8px; margin-top: 20px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; }
+.compare p { margin: 0; }
+.rules { list-style: none; padding: 0; margin: 0 0 32px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.rules li { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+.rules h2 { font-size: 1.2rem; margin-bottom: 8px; }
+.rules p { margin: 0; }
+@media (max-width: 680px) { .rules { grid-template-columns: 1fr; } }

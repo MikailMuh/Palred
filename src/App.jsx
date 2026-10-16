@@ -6,6 +6,7 @@ import Jastip from './pages/Jastip.jsx'
 import Harga from './pages/Harga.jsx'
 import Paket from './pages/Paket.jsx'
 import Keranjang from './pages/Keranjang.jsx'
+import Kebijakan from './pages/Kebijakan.jsx'
 
 const NAV = [
   { id: 'home', label: 'Beranda' },
@@ -14,7 +15,7 @@ const NAV = [
   { id: 'paket', label: 'Paket Masak' },
 ]
 
-const PATHS = { home: '/', jastip: '/jastip', harga: '/harga', paket: '/paket', keranjang: '/keranjang' }
+const PATHS = { home: '/', jastip: '/jastip', harga: '/harga', paket: '/paket', keranjang: '/keranjang', kebijakan: '/kebijakan' }
 
 const pageFromPath = (path) => {
   const clean = path.replace(/\/+$/, '') || '/'
@@ -41,7 +42,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const titles = { home: 'Palred — Pasar dalam genggaman', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred' }
+    const titles = { home: 'Palred — Pasar dalam genggaman', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred', kebijakan: 'Kebijakan Jastip · Palred' }
     document.title = titles[page]
   }, [page])
 
@@ -100,6 +101,7 @@ export default function App() {
         {page === 'jastip' && <Jastip />}
         {page === 'harga' && <Harga />}
         {page === 'paket' && <Paket addToCart={addToCart} />}
+        {page === 'kebijakan' && <Kebijakan go={go} />}
         {page === 'keranjang' && <Keranjang cart={cart} changeQty={changeQty} removeLine={removeLine} go={go} />}
       </main>
 
