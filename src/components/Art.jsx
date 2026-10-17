@@ -1,4 +1,4 @@
-// Ilustrasi sementara — semua digambar sebagai SVG inline, tanpa aset eksternal.
+// Ilustrasi sementara: semua digambar sebagai SVG inline, tanpa aset eksternal.
 
 const C = {
   red: '#E4573D',
@@ -199,8 +199,8 @@ export function HeroMarket() {
       </g>
       <g transform="translate(350 146)">
         <rect width="96" height="48" rx="8" fill="#14261E" />
-        <text x="48" y="20" textAnchor="middle" fill={C.leaf} fontFamily="JetBrains Mono, monospace" fontSize="11">CABAI/kg</text>
-        <text x="48" y="38" textAnchor="middle" fill={C.yellow} fontFamily="JetBrains Mono, monospace" fontWeight="700" fontSize="14">42.500</text>
+        <text x="48" y="20" textAnchor="middle" fill={C.leaf} fontFamily="JetBrains Mono, monospace" fontSize="11">HARGA PASAR</text>
+        <text x="48" y="38" textAnchor="middle" fill={C.yellow} fontFamily="JetBrains Mono, monospace" fontWeight="700" fontSize="14">per kg</text>
       </g>
       <g transform="translate(30 330)">
         <path d="M0 20h70l-6 60H6z" fill={C.red} />
@@ -315,8 +315,8 @@ export function Logo({ size = 32 }) {
   )
 }
 
-export function Sparkline({ data, w = 96, h = 28, up }) {
-  if (!data?.length) return null
+export function Sparkline({ data, w = 96, h = 28, up, tone = 'dark' }) {
+  if (!data || data.length < 2) return null
   const min = Math.min(...data)
   const max = Math.max(...data)
   const span = max - min || 1
@@ -325,7 +325,15 @@ export function Sparkline({ data, w = 96, h = 28, up }) {
     .join(' ')
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
-      <polyline points={pts} fill="none" stroke={up ? '#FF7A62' : '#8FD18B'} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+      <polyline
+        points={pts}
+        fill="none"
+        stroke={tone === 'dark' ? (up ? '#FF7A62' : '#8FD18B') : undefined}
+        style={tone === 'dark' ? undefined : { stroke: up ? 'var(--spark-up)' : 'var(--spark-down)' }}
+        strokeWidth="2"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }

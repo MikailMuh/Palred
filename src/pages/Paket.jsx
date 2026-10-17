@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Dish, PackageBox, Produce } from '../components/Art.jsx'
-import { packPrice, recipes, rupiah } from '../data.js'
+import { recipes, rupiah } from '../data.js'
+import { formatTanggal } from '../prices.js'
+import { usePricing } from '../pricing.js'
 
 const TYPES = ['Semua', 'Berkuah', 'Goreng', 'Sayur']
 const PORTIONS = [1, 2, 4, 6, 10]
@@ -15,6 +17,7 @@ const fmtQty = (q, unit) => {
 export default function Paket({ addToCart }) {
   const [type, setType] = useState('Semua')
   const [open, setOpen] = useState(null)
+  const pricing = usePricing()
   const list = recipes.filter((r) => type === 'Semua' || r.type === type)
 
   return (
@@ -24,7 +27,7 @@ export default function Paket({ addToCart }) {
           <span className="eyebrow">Paket Masak</span>
           <h1>Bahan per resep, sudah ditakar</h1>
           <p className="muted">
-            Pilih masakan dan jumlah porsi — kami siapkan semua bahan dalam satu kotak, ditimbang sesuai takaran
+            Pilih masakan dan jumlah porsi. Kami siapkan semua bahan dalam satu kotak, ditimbang sesuai takaran
             resep. Hemat waktu belanja, minim sisa bahan.
           </p>
           <div className="chips">
@@ -36,23 +39,37 @@ export default function Paket({ addToCart }) {
         <div className="head-art"><PackageBox items={['ayam', 'kelapa', 'bawang', 'cabai']} label="Paket Opor" /></div>
       </header>
 
+      {pricing.status === 'loading' && <p role="status" className="muted">Memuat harga bahan…</p>}
+      {(pricing.status === 'error' || pricing.status === 'empty') && (
+        <div role="alert" className="card pad status-box">
+          <strong>Harga paket belum bisa dihitung.</strong>
+          <p className="muted small">Data harga PIHPS tidak tersedia saat ini.</p>
+          {pricing.status === 'error' && <button className="btn ghost" onClick={pricing.retry}>Muat ulang data harga</button>}
+        </div>
+      )}
+      {pricing.date && (
+        <p className="small muted data-date">
+          Harga paket dihitung dari patokan PIHPS Bank Indonesia per {formatTanggal(pricing.date)} (rata-rata nasional). Bahan di luar PIHPS memakai estimasi.
+        </p>
+      )}
+
       <div className="grid-3">
         {list.map((r) => (
           <article key={r.id} className="card recipe-card">
-            <button className="dish-wrap" onClick={() => setOpen(r)} aria-label={`Lihat paket ${r.name}`}>
+            <button className="dish-wrap" onClick={() => setOpen(r)} aria-label={`${r.level}, lihat paket ${r.name}`}>
               <Dish {...r.dish} />
               <span className="level">{r.level}</span>
             </button>
             <div className="recipe-meta">
-              <h3>{r.name}</h3>
+              <h2 className="card-title">{r.name}</h2>
               <p className="muted small">{r.origin} · {r.minutes} menit · {r.ingredients.length} bahan</p>
               <div className="ing-icons">
                 {r.ingredients.map((i) => <Produce key={i.name} type={i.icon} size={26} />)}
               </div>
               <div className="row between">
                 <div>
-                  <div className="price">{rupiah(packPrice(r, 2))}</div>
-                  <div className="muted small">untuk 2 porsi</div>
+                  <div className="price">{pricing.packFor(r, 2) ? rupiah(pricing.packFor(r, 2).total) : pricing.status === 'loading' ? <span className="skeleton skeleton-price" aria-hidden="true" /> : 'Belum tersedia'}</div>
+                  <div className="muted small">perkiraan, 2 porsi</div>
                 </div>
                 <button className="btn primary sm" onClick={() => setOpen(r)}>Pilih</button>
               </div>
@@ -61,15 +78,17 @@ export default function Paket({ addToCart }) {
         ))}
       </div>
 
-      {open && <Detail recipe={open} onClose={() => setOpen(null)} addToCart={addToCart} />}
+      {open && <Detail recipe={open} pricing={pricing} onClose={() => setOpen(null)} addToCart={addToCart} />}
     </section>
   )
 }
 
-function Detail({ recipe, onClose, addToCart }) {
+function Detail({ recipe, pricing, onClose, addToCart }) {
   const [portions, setPortions] = useState(2)
   const scale = portions / 2
-  const price = packPrice(recipe, portions)
+  const pack = pricing.packFor(recipe, portions)
+  const retail = pricing.retailFor(recipe, portions)
+  const saving = pack && retail ? retail - pack.total : 0
 
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -109,11 +128,27 @@ function Detail({ recipe, onClose, addToCart }) {
             {recipe.ingredients.map((i) => (
               <li key={i.name}>
                 <Produce type={i.icon} size={40} bg="var(--cream-2)" />
-                <span className="grow">{i.name}</span>
+                <span className="grow">{i.name}{!i.pihpsKey && <span className="tag-est">estimasi</span>}</span>
                 <span className="qty mono">{fmtQty(i.qty * scale, i.unit)}</span>
               </li>
             ))}
           </ul>
+
+          {saving > 0 && (
+            <div className="compare" role="note">
+              <div className="row between">
+                <span>Beli eceran sendiri<span className="tag-est">estimasi</span></span>
+                <span className="mono">{rupiah(retail)}</span>
+              </div>
+              <div className="row between">
+                <span>Paket ini</span>
+                <span className="mono">{rupiah(pack.total)}</span>
+              </div>
+              <p className="muted small">
+                Eceran dihitung dari pembelian minimum per bahan yang kami perkirakan (misalnya ayam 500 g), jadi ada bahan yang tersisa. Harga paket belum termasuk ongkir dan biaya jasa.
+              </p>
+            </div>
+          )}
 
           <div className="pack-note">
             <div className="pack-mini"><PackageBox items={recipe.ingredients.map((i) => i.icon)} label={recipe.name} /></div>
@@ -126,13 +161,19 @@ function Detail({ recipe, onClose, addToCart }) {
         </div>
         <div className="drawer-foot">
           <div>
-            <div className="muted small">Total {portions} porsi</div>
-            <div className="price lg">{rupiah(price)}</div>
+            <div className="muted small">Perkiraan total {portions} porsi</div>
+            <div className="price lg">{pack ? rupiah(pack.total) : 'Belum tersedia'}</div>
+            {pack && (
+              <div className="muted small">
+                {rupiah(pack.pihps)} patokan PIHPS{pack.estimate > 0 && ` + ${rupiah(pack.estimate)} estimasi`}
+              </div>
+            )}
           </div>
           <button
             className="btn primary"
+            disabled={!pack}
             onClick={() => {
-              addToCart({ id: recipe.id, name: `Paket ${recipe.name} (${portions} porsi)`, portions, price })
+              addToCart({ recipeId: recipe.id, portions })
               onClose()
             }}
           >

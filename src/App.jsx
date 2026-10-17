@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
-import { useLivePrices } from './data.js'
+import ThemeToggle from './components/ThemeToggle.jsx'
+import { recipes } from './data.js'
 import Home from './pages/Home.jsx'
-import Jastip from './pages/Jastip.jsx'
-import Harga from './pages/Harga.jsx'
-import Paket from './pages/Paket.jsx'
+import { PriceDataContext, useFetchPriceData } from './prices.js'
+
+const Jastip = lazy(() => import('./pages/Jastip.jsx'))
+const Harga = lazy(() => import('./pages/Harga.jsx'))
+const Paket = lazy(() => import('./pages/Paket.jsx'))
+const Keranjang = lazy(() => import('./pages/Keranjang.jsx'))
+const Kebijakan = lazy(() => import('./pages/Kebijakan.jsx'))
 
 const NAV = [
   { id: 'home', label: 'Beranda' },
@@ -13,17 +18,35 @@ const NAV = [
   { id: 'paket', label: 'Paket Masak' },
 ]
 
+const PATHS = { home: '/', jastip: '/jastip', harga: '/harga', paket: '/paket', keranjang: '/keranjang', kebijakan: '/kebijakan' }
+
+const pageFromPath = (path) => {
+  const clean = path.replace(/\/+$/, '') || '/'
+  return Object.keys(PATHS).find((id) => PATHS[id] === clean) ?? 'home'
+}
+
 export default function App() {
-  const [page, setPage] = useState('home')
-  const [regionId, setRegionId] = useState('jkt')
+  const priceData = useFetchPriceData()
+  const [page, setPage] = useState(() => pageFromPath(window.location.pathname))
   const [cart, setCart] = useState([])
   const [toast, setToast] = useState(null)
-  const live = useLivePrices(regionId)
 
   const go = (id) => {
+    if (id !== page) window.history.pushState(null, '', PATHS[id])
     setPage(id)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  useEffect(() => {
+    const onPop = () => setPage(pageFromPath(window.location.pathname))
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
+  useEffect(() => {
+    const titles = { home: 'Pasar dalam genggaman · Palred', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred', kebijakan: 'Kebijakan Jastip · Palred' }
+    document.title = titles[page]
+  }, [page])
 
   const notify = (msg) => setToast({ msg, key: Date.now() })
   useEffect(() => {
@@ -32,12 +55,26 @@ export default function App() {
     return () => clearTimeout(t)
   }, [toast])
 
-  const addToCart = (item) => {
-    setCart((c) => [...c, item])
-    notify(`${item.name} masuk keranjang`)
+  const sameLine = (l, recipeId, portions) => l.recipeId === recipeId && l.portions === portions
+
+  const addToCart = ({ recipeId, portions }) => {
+    setCart((c) =>
+      c.some((l) => sameLine(l, recipeId, portions))
+        ? c.map((l) => (sameLine(l, recipeId, portions) ? { ...l, qty: l.qty + 1 } : l))
+        : [...c, { recipeId, portions, qty: 1 }],
+    )
+    notify(`Paket ${recipes.find((r) => r.id === recipeId).name} (${portions} porsi) masuk keranjang`)
   }
 
+  const changeQty = (recipeId, portions, delta) =>
+    setCart((c) => c.map((l) => (sameLine(l, recipeId, portions) ? { ...l, qty: l.qty + delta } : l)).filter((l) => l.qty > 0))
+
+  const removeLine = (recipeId, portions) => setCart((c) => c.filter((l) => !sameLine(l, recipeId, portions)))
+
+  const cartCount = cart.reduce((n, l) => n + l.qty, 0)
+
   return (
+    <PriceDataContext.Provider value={priceData}>
     <div className="app">
       <header className="topbar">
         <div className="container topbar-inner">
@@ -52,21 +89,28 @@ export default function App() {
               </button>
             ))}
           </nav>
-          <button className="cart-btn" aria-label={`Keranjang, ${cart.length} item`}>
+          <div className="topbar-actions">
+          <ThemeToggle />
+          <button className="cart-btn" aria-label={`Keranjang, ${cartCount} item`} onClick={() => go('keranjang')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 7h12l-1 13H7z" />
               <path d="M9 7a3 3 0 0 1 6 0" />
             </svg>
-            {cart.length > 0 && <span className="badge">{cart.length}</span>}
+            {cartCount > 0 && <span className="badge">{cartCount}</span>}
           </button>
+          </div>
         </div>
       </header>
 
       <main>
-        {page === 'home' && <Home go={go} live={live} />}
-        {page === 'jastip' && <Jastip live={live} notify={notify} />}
-        {page === 'harga' && <Harga live={live} regionId={regionId} setRegionId={setRegionId} />}
+        <Suspense fallback={<div className="page-loading container" role="status">Memuat halaman…</div>}>
+        {page === 'home' && <Home go={go} />}
+        {page === 'jastip' && <Jastip />}
+        {page === 'harga' && <Harga />}
         {page === 'paket' && <Paket addToCart={addToCart} />}
+        {page === 'kebijakan' && <Kebijakan go={go} />}
+        {page === 'keranjang' && <Keranjang cart={cart} changeQty={changeQty} removeLine={removeLine} go={go} />}
+        </Suspense>
       </main>
 
       <footer className="footer">
@@ -83,7 +127,7 @@ export default function App() {
               <button key={n.id} onClick={() => go(n.id)}>{n.label}</button>
             ))}
           </div>
-          <p className="muted small">© 2026 Palred · Desain prototipe — data harga masih simulasi</p>
+          <p className="muted small">© 2026 Palred · Prototipe. Harga dari PIHPS Bank Indonesia, barang di luar PIHPS berlabel estimasi</p>
         </div>
       </footer>
 
@@ -93,5 +137,6 @@ export default function App() {
         </div>
       )}
     </div>
+    </PriceDataContext.Provider>
   )
 }

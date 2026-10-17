@@ -1,59 +1,118 @@
 import { useState } from 'react'
 import { Produce, Sparkline } from '../components/Art.jsx'
-import { angka, categories, commodities, regions } from '../data.js'
+import CekHarga from '../components/CekHarga.jsx'
+import { angka } from '../data.js'
+import { PRICE_GROUPS, daysSince, formatTanggal, isStale, seriesUntil, usePriceData, valueAt } from '../prices.js'
 
-export default function Harga({ live, regionId, setRegionId }) {
-  const { prices, updatedAt, region } = live
-  const [cat, setCat] = useState('Semua')
-  const [q, setQ] = useState('')
-  const [selected, setSelected] = useState('cabai-merah')
+const CATEGORIES = ['Semua', 'Bumbu', 'Protein', 'Sembako']
+const PROV_PREVIEW = 10
 
-  const rows = commodities.filter(
-    (c) => (cat === 'Semua' || c.cat === cat) && c.name.toLowerCase().includes(q.toLowerCase()),
-  )
-  const sel = commodities.find((c) => c.id === selected)
-  const selP = prices[selected]
-  // perbandingan antar daerah: geser harga live ke faktor tiap provinsi
-  const compare = regions
-    .map((r) => ({ ...r, price: (selP.price / region.factor) * r.factor }))
-    .sort((a, b) => a.price - b.price)
-  const maxCompare = Math.max(...compare.map((c) => c.price))
+const persen = (n) => Math.abs(n).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
-  const ups = commodities.filter((c) => prices[c.id].price > prices[c.id].open).length
+export default function Harga() {
+  const state = usePriceData()
 
   return (
     <section className="container page">
-      <header className="page-head row between wrap">
-        <div>
-          <span className="eyebrow">Billboard Harga</span>
-          <h1>Harga pasar realtime per daerah</h1>
-          <p className="muted">Acuan harga eceran pasar tradisional. Diperbarui otomatis dari laporan mitra pasar.</p>
-        </div>
-        <div className="live-meta">
-          <span className="live-pill"><span className="dot" /> LIVE</span>
-          <span className="muted small">Update {updatedAt.toLocaleTimeString('id-ID')}</span>
-        </div>
+      <header className="page-head">
+        <span className="eyebrow">Billboard Harga</span>
+        <h1>Harga pangan pasar tradisional per provinsi</h1>
+        <p className="muted">Patokan rata-rata harga di pasar tradisional tiap provinsi. Sumber: PIHPS Bank Indonesia.</p>
       </header>
 
-      <div className="region-tabs" role="tablist" aria-label="Pilih daerah">
-        {regions.map((r) => (
-          <button key={r.id} role="tab" aria-selected={regionId === r.id} className={regionId === r.id ? 'active' : ''} onClick={() => setRegionId(r.id)}>
-            {r.name}
-          </button>
+      {state.status === 'loading' && <div role="status" className="board-skeleton">Memuat data harga…</div>}
+      {state.status === 'error' && (
+        <div role="alert" className="card pad status-box">
+          <strong>Data harga gagal dimuat.</strong>
+          <p className="muted small">Cek koneksi internetmu, lalu coba lagi.</p>
+          <button className="btn ghost" onClick={state.retry}>Muat ulang data harga</button>
+        </div>
+      )}
+      {state.status === 'empty' && (
+        <div role="status" className="card pad status-box">
+          <strong>Belum ada data harga.</strong>
+          <p className="muted small">Data dari PIHPS Bank Indonesia belum tersedia. Coba lagi nanti.</p>
+        </div>
+      )}
+      {state.status === 'ready' && <Billboard data={state.data} meta={state.meta} />}
+    </section>
+  )
+}
+
+function Billboard({ data, meta }) {
+  const { latest, previous, provinces, partialNewer, totalProvinces } = meta
+  const [cat, setCat] = useState('Semua')
+  const [q, setQ] = useState('')
+  const [selectedGroup, setSelectedGroup] = useState('cabai-merah')
+  const [variants, setVariants] = useState({})
+  const [provId, setProvId] = useState('')
+  const [showAllProv, setShowAllProv] = useState(false)
+
+  const provName = provId ? provinces.find((p) => p.id === provId).name : 'Rata-rata nasional'
+
+  const rows = PRICE_GROUPS.map((g) => {
+    const key = variants[g.id] ?? g.defaultKey
+    const series = seriesUntil(data, key, latest, provId)
+    const current = valueAt(data, key, latest, provId)
+    const before = previous ? valueAt(data, key, previous, provId) : undefined
+    const diff = current != null && before != null ? ((current - before) / before) * 100 : null
+    return { ...g, key, name: data.commodities[key].name, series, current, diff }
+  }).filter((r) => (cat === 'Semua' || r.cat === cat) && r.name.toLowerCase().includes(q.toLowerCase()))
+
+  const sel = PRICE_GROUPS.find((g) => g.id === selectedGroup)
+  const selKey = variants[sel.id] ?? sel.defaultKey
+  const selSeries = seriesUntil(data, selKey, latest, provId)
+  const selCurrent = valueAt(data, selKey, latest, provId)
+  const selBefore = previous ? valueAt(data, selKey, previous, provId) : undefined
+  const selValues = selSeries.map((p) => p.value)
+
+  const compare = provinces
+    .map((p) => ({ ...p, value: valueAt(data, selKey, latest, p.id) }))
+    .sort((a, b) => (a.value ?? Infinity) - (b.value ?? Infinity))
+  const maxCompare = Math.max(...compare.map((c) => c.value ?? 0))
+  const comparePreview = showAllProv ? compare : compare.filter((r, i) => i < PROV_PREVIEW || r.id === provId)
+
+  const up = rows.filter((r) => r.diff > 0).length
+  const down = rows.filter((r) => r.diff < 0).length
+
+  return (
+    <>
+      {isStale(latest) && (
+        <div role="status" className="card pad note stale-note">
+          <strong>Data mungkin belum diperbarui.</strong>
+          <p className="small">
+            Data terbaru yang kami punya tertanggal {formatTanggal(latest)} ({daysSince(latest)} hari lalu). Pakai sebagai gambaran saja dan cek harga di pasar.
+          </p>
+        </div>
+      )}
+      <p className="small muted data-date">
+        <strong>Data per {formatTanggal(latest)}</strong>
+        {previous && <> · selisih dibanding {formatTanggal(previous)}</>}
+        {partialNewer.map((p) => (
+          <span key={p.date}> · Data {formatTanggal(p.date)} baru {p.count} dari {totalProvinces} provinsi, belum dipakai</span>
         ))}
-      </div>
+      </p>
 
       <div className="layout-aside wide-aside">
         <div className="board">
           <div className="board-head">
             <div>
-              <div className="board-title">PAPAN HARGA · {region.name.toUpperCase()}</div>
-              <div className="board-sub">{ups} naik · {commodities.length - ups} turun/stabil sejak buka</div>
+              <div className="board-title">PAPAN HARGA · {provName.toUpperCase()}</div>
+              <div className="board-sub">{up} naik · {down} turun · {rows.length - up - down} tetap atau belum ada data</div>
             </div>
             <div className="board-filters">
+              <label className="board-field">
+                <span className="small">Provinsi</span>
+                <select className="board-select" value={provId} onChange={(e) => setProvId(e.target.value)}>
+                  <option value="">Rata-rata nasional</option>
+                  {provinces.map((p) => (
+                    <option key={p.id} value={p.id}>{p.name}</option>
+                  ))}
+                </select>
+              </label>
               <input className="board-search" placeholder="Cari komoditas…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Cari komoditas" />
               <div className="chips">
-                {categories.map((c) => (
+                {CATEGORIES.map((c) => (
                   <button key={c} className={`chip-btn dark ${cat === c ? 'active' : ''}`} onClick={() => setCat(c)}>{c}</button>
                 ))}
               </div>
@@ -64,31 +123,31 @@ export default function Harga({ live, regionId, setRegionId }) {
             <div className="board-row th">
               <span>Komoditas</span>
               <span className="r">Harga</span>
-              <span className="r">Δ hari ini</span>
+              <span className="r">Δ vs hari sebelumnya</span>
               <span className="r hide-sm">Tren</span>
             </div>
-            {rows.map((c) => {
-              const p = prices[c.id]
-              const diff = ((p.price - p.open) / p.open) * 100
-              const up = diff >= 0
+            {rows.map((r) => {
+              const trendUp = r.diff > 0
               return (
                 <button
-                  key={c.id}
-                  className={`board-row ${p.flash ? 'flash-' + p.flash : ''} ${selected === c.id ? 'sel' : ''}`}
-                  onClick={() => setSelected(c.id)}
+                  key={r.id}
+                  className={`board-row ${selectedGroup === r.id ? 'sel' : ''}`}
+                  aria-pressed={selectedGroup === r.id}
+                  onClick={() => setSelectedGroup(r.id)}
                 >
                   <span className="b-name">
-                    <Produce type={c.icon} size={32} />
-                    <span>
-                      {c.name}
-                      <small>/{c.unit}</small>
+                    <Produce type={r.icon} size={32} />
+                    <span>{r.name}</span>
+                  </span>
+                  {r.current != null ? <span className="r led"><small>Rp</small>{angka(r.current)}</span> : <span className="r no-data">belum ada data</span>}
+                  {r.diff == null ? (
+                    <span className="r delta flat">–</span>
+                  ) : (
+                    <span className={`r delta ${r.diff > 0 ? 'up' : r.diff < 0 ? 'down' : 'flat'}`}>
+                      {r.diff > 0 ? '▲' : r.diff < 0 ? '▼' : '■'} {persen(r.diff)}%
                     </span>
-                  </span>
-                  <span className="r led">{angka(p.price)}</span>
-                  <span className={`r delta ${up ? 'up' : 'down'}`}>
-                    {up ? '▲' : '▼'} {Math.abs(diff).toFixed(2)}%
-                  </span>
-                  <span className="r hide-sm"><Sparkline data={p.history} up={up} /></span>
+                  )}
+                  <span className="r hide-sm"><Sparkline data={r.series.map((p) => p.value)} up={trendUp} /></span>
                 </button>
               )
             })}
@@ -101,45 +160,81 @@ export default function Harga({ live, regionId, setRegionId }) {
             <div className="row gap">
               <Produce type={sel.icon} size={56} bg="var(--cream-2)" />
               <div>
-                <div className="muted small">{sel.cat}</div>
-                <h2 className="no-m">{sel.name}</h2>
+                <div className="muted small">{sel.cat} · {provName}</div>
+                <h2 className="no-m">{data.commodities[selKey].name}</h2>
               </div>
             </div>
-            <div className="big-price mono">Rp{angka(selP.price)}<small>/{sel.unit}</small></div>
+            {sel.keys.length > 1 && (
+              <div className="chips variant-chips" role="group" aria-label="Pilih varian">
+                {sel.keys.map((k) => (
+                  <button key={k} className={`chip-btn ${k === selKey ? 'active' : ''}`} aria-pressed={k === selKey} onClick={() => setVariants((v) => ({ ...v, [sel.id]: k }))}>
+                    {data.commodities[k].name}
+                  </button>
+                ))}
+              </div>
+            )}
+            {selCurrent != null ? (
+              <div className="big-price mono"><small>Rp</small>{angka(selCurrent)}</div>
+            ) : (
+              <div className="big-price no-data-lg">Belum ada data untuk {provName} pada {formatTanggal(latest)}</div>
+            )}
             <div className="spark-lg">
-              <Sparkline data={selP.history} w={300} h={80} up={selP.price >= selP.open} />
+              <Sparkline data={selValues} w={300} h={80} up={selCurrent > selBefore} />
             </div>
-            <div className="row between small muted">
-              <span>Buka: Rp{angka(selP.open)}</span>
-              <span>Tertinggi: Rp{angka(Math.max(...selP.history))}</span>
-            </div>
+            {selValues.length > 1 && (
+              <div className="row between small muted">
+                <span>{previous && selBefore != null ? `${formatTanggal(previous, false)}: Rp${angka(selBefore)}` : 'Hari sebelumnya: belum ada data'}</span>
+                <span>Tertinggi sejak {formatTanggal(selSeries[0].date, false)}: Rp{angka(Math.max(...selValues))}</span>
+              </div>
+            )}
           </div>
 
           <div className="card pad">
-            <h3>Perbandingan antar daerah</h3>
-            <p className="muted small">Harga {sel.name.toLowerCase()} per {sel.unit}</p>
-            <ul className="bars">
-              {compare.map((r) => (
-                <li key={r.id} className={r.id === regionId ? 'me' : ''}>
+            <h3>Perbandingan antar provinsi</h3>
+            <p className="muted small">
+              {data.commodities[selKey].name}, {formatTanggal(latest)}. Rata-rata nasional: Rp{angka(valueAt(data, selKey, latest, ''))}
+            </p>
+            <ul className="bars" aria-label="Daftar harga per provinsi">
+              {comparePreview.map((r) => (
+                <li key={r.id} className={r.id === provId ? 'me' : ''}>
                   <span className="bar-label">{r.name}</span>
                   <span className="bar-track">
-                    <span className="bar-fill" style={{ width: `${(r.price / maxCompare) * 100}%` }} />
+                    {r.value != null && <span className="bar-fill" style={{ width: `${(r.value / maxCompare) * 100}%` }} />}
                   </span>
-                  <span className="mono small">{angka(r.price)}</span>
+                  <span className="mono small">{r.value != null ? angka(r.value) : 'belum ada data'}</span>
                 </li>
               ))}
             </ul>
+            {compare.length > PROV_PREVIEW && (
+              <button className="btn ghost sm bars-more" aria-expanded={showAllProv} onClick={() => setShowAllProv((v) => !v)}>
+                {showAllProv ? `Tampilkan ${PROV_PREVIEW} provinsi saja` : `Lihat semua ${compare.length} provinsi`}
+              </button>
+            )}
           </div>
 
           <div className="card pad note">
-            <strong>Pakai sebagai acuan</strong>
+            <strong>Pakai sebagai patokan</strong>
             <p className="small">
-              UMKM bisa menunjukkan papan ini saat tawar-menawar. Harga merupakan rata-rata laporan pasar, bisa
-              berbeda ±5% per lapak.
+              Harga di sini rata-rata per provinsi dari PIHPS Bank Indonesia, bukan harga di lapak tertentu. Harga di pasarmu bisa berbeda.
             </p>
           </div>
         </aside>
       </div>
-    </section>
+
+      <CekHarga data={data} meta={meta} provId={provId} provName={provName} />
+
+      <details className="card pad method">
+        <summary>Bagaimana harga ini dihitung?</summary>
+        <ul className="small">
+          <li>Sumber: PIHPS (Pusat Informasi Harga Pangan Strategis) Bank Indonesia, kategori pasar tradisional. Data diambil otomatis dari situs PIHPS.</li>
+          <li>Angka adalah rata-rata harga per provinsi, bukan harga di satu pasar atau lapak. "Rata-rata nasional" adalah angka PIHPS untuk seluruh provinsi yang melapor pada hari itu.</li>
+          <li>Data terbit di hari kerja. Sabtu dan Minggu tidak ada data baru.</li>
+          <li>Data hari terbaru sering baru terisi sebagian provinsi. Papan memakai tanggal terbaru yang sudah hampir lengkap, jadi bisa tertinggal sehari dari hari ini.</li>
+          <li>Selisih (▲▼) dibandingkan dengan hari data sebelumnya, bukan selalu kemarin. Grafik tren memakai semua hari data yang tersedia sejak {formatTanggal(meta.dates[0])}.</li>
+          <li>Provinsi yang tidak melapor pada hari itu ditulis "belum ada data", bukan nol.</li>
+          <li>Harga di pasar dekatmu bisa berbeda. Pakai sebagai patokan saat menawar, bukan harga pasti.</li>
+        </ul>
+      </details>
+    </>
   )
 }

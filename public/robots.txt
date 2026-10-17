@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://palred.vercel.app/sitemap.xml
