@@ -27,7 +27,7 @@ export default function Paket({ addToCart }) {
           <span className="eyebrow">Paket Masak</span>
           <h1>Bahan per resep, sudah ditakar</h1>
           <p className="muted">
-            Pilih masakan dan jumlah porsi — kami siapkan semua bahan dalam satu kotak, ditimbang sesuai takaran
+            Pilih masakan dan jumlah porsi. Kami siapkan semua bahan dalam satu kotak, ditimbang sesuai takaran
             resep. Hemat waktu belanja, minim sisa bahan.
           </p>
           <div className="chips">

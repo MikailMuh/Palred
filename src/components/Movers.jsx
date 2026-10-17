@@ -7,16 +7,20 @@ const TOP = 3
 
 function Column({ title, rows, dir }) {
   return (
-    <div>
-      <h3 className="movers-title">{title}</h3>
+    <div className={`movers-col ${dir}`}>
+      <h3 className="movers-title">
+        <span className="movers-icon" aria-hidden="true">{dir === 'up' ? '▲' : '▼'}</span>
+        {title}
+      </h3>
       <div className="mini-board">
         {rows.map((r) => (
           <div key={r.id} className="mini-row">
             <Produce type={r.icon} size={36} />
             <div className="grow">
               <div className="strong">{r.name}</div>
-              <div className="muted small">{rupiah(r.price)}</div>
+              <div className="muted small">rata-rata nasional</div>
             </div>
+            <div className="mini-price">{rupiah(r.price)}</div>
             <span className={`chip ${dir}`}>{dir === 'up' ? '▲' : '▼'} {persen(r.diff)}%</span>
           </div>
         ))}

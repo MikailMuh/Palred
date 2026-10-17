@@ -1,20 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
-
 // Data dummy untuk keperluan desain. Komoditas dengan pihpsKey memakai harga PIHPS; sisanya `base` = estimasi, bukan data resmi.
 
 export const rupiah = (n) =>
   new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n)
 
 export const angka = (n) => new Intl.NumberFormat('id-ID').format(Math.round(n))
-
-export const regions = [
-  { id: 'jkt', name: 'DKI Jakarta', factor: 1.08 },
-  { id: 'jabar', name: 'Jawa Barat', factor: 1.0 },
-  { id: 'jatim', name: 'Jawa Timur', factor: 0.94 },
-  { id: 'sumut', name: 'Sumatera Utara', factor: 1.05 },
-  { id: 'sulsel', name: 'Sulawesi Selatan', factor: 1.12 },
-  { id: 'bali', name: 'Bali', factor: 1.1 },
-]
 
 export const categories = ['Semua', 'Sayur', 'Bumbu', 'Protein', 'Sembako']
 
@@ -79,7 +68,7 @@ export const recipes = [
   {
     id: 'sayurasem', name: 'Sayur Asem', origin: 'Jawa Barat', minutes: 40, level: 'Mudah', type: 'Sayur',
     dish: { base: '#C9A24A', garnish: '#4FA35F', style: 'bowl' },
-    desc: 'Sayur segar berkuah asam manis — cocok untuk menu harian warung.',
+    desc: 'Sayur segar berkuah asam manis, cocok untuk menu harian warung.',
     ingredients: [
       { name: 'Paket sayur (labu, kacang, melinjo)', icon: 'sayur', qty: 300, unit: 'g', estPrice: 6000 },
       { name: 'Jagung manis', icon: 'wortel', qty: 1, unit: 'tongkol', estPrice: 3000 },
@@ -91,7 +80,7 @@ export const recipes = [
   {
     id: 'nasgor', name: 'Nasi Goreng Kampung', origin: 'Nasional', minutes: 20, level: 'Mudah', type: 'Goreng',
     dish: { base: '#B5652F', garnish: '#2F7A4B', style: 'plate' },
-    desc: 'Nasi goreng bumbu ulek dengan telur ceplok — favorit menu UMKM kaki lima.',
+    desc: 'Nasi goreng bumbu ulek dengan telur ceplok, favorit menu UMKM kaki lima.',
     ingredients: [
       { name: 'Beras (untuk nasi)', icon: 'beras', qty: 200, unit: 'g', pihpsKey: 'beras-medium-1' },
       { name: 'Telur ayam', icon: 'telur', qty: 2, unit: 'butir', pihpsKey: 'telur-ayam', gramsEach: 60 },
@@ -181,59 +170,4 @@ export function retailPrice(recipe, portions, priceOf) {
     total += (Math.ceil(grams / min) * min * value) / 1000
   }
   return Math.round(total / 100) * 100
-}
-
-// Simulasi feed harga realtime: tiap tick beberapa komoditas bergeser sedikit.
-const HISTORY = 24
-
-function seed(regionFactor) {
-  const out = {}
-  for (const c of commodities) {
-    const start = c.base * regionFactor
-    const hist = [start]
-    for (let i = 1; i < HISTORY; i++) hist.push(hist[i - 1] * (1 + (Math.random() - 0.5) * 0.03))
-    out[c.id] = { price: hist[HISTORY - 1], open: hist[0], history: hist, flash: null }
-  }
-  return out
-}
-
-export function useLivePrices(regionId) {
-  const region = regions.find((r) => r.id === regionId) ?? regions[0]
-  const [state, setState] = useState(() => seed(region.factor))
-  const [updatedAt, setUpdatedAt] = useState(new Date())
-  const first = useRef(true)
-
-  useEffect(() => {
-    if (first.current) {
-      first.current = false
-      return
-    }
-    setState(seed(region.factor))
-  }, [region.factor])
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setState((prev) => {
-        const next = {}
-        const ids = Object.keys(prev)
-        for (const id of ids) next[id] = { ...prev[id], flash: null }
-        for (let k = 0; k < 3; k++) {
-          const id = ids[Math.floor(Math.random() * ids.length)]
-          const cur = next[id]
-          const price = cur.price * (1 + (Math.random() - 0.48) * 0.025)
-          next[id] = {
-            ...cur,
-            price,
-            history: [...cur.history.slice(1), price],
-            flash: price >= cur.price ? 'up' : 'down',
-          }
-        }
-        return next
-      })
-      setUpdatedAt(new Date())
-    }, 2600)
-    return () => clearInterval(t)
-  }, [])
-
-  return { prices: state, updatedAt, region }
 }

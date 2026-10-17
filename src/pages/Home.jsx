@@ -1,18 +1,19 @@
 import HeroPrices from '../components/HeroPrices.jsx'
+import MiniBoard from '../components/MiniBoard.jsx'
 import Movers from '../components/Movers.jsx'
-import { Billboard, Courier, Dish, HeroMarket, PackageBox, Produce } from '../components/Art.jsx'
-import { angka, commodities, recipes, rupiah } from '../data.js'
+import Ticker from '../components/Ticker.jsx'
+import { Billboard, Courier, Dish, HeroMarket, PackageBox } from '../components/Art.jsx'
+import { recipes, rupiah } from '../data.js'
 import { usePricing } from '../pricing.js'
 import { useReveal } from '../useReveal.js'
 
-export default function Home({ go, live }) {
-  const { prices, region } = live
+export default function Home({ go }) {
   const pricing = usePricing()
   useReveal()
 
   return (
     <>
-      <Ticker prices={prices} />
+      <Ticker pricing={pricing} />
 
       <section className="hero container">
         <div className="hero-copy">
@@ -24,7 +25,7 @@ export default function Home({ go, live }) {
           </h1>
           <p className="lead">
             Palred menghubungkan dapur UMKM dengan pasar tradisional: titip belanja ke shopper kami,
-            pantau harga komoditas per daerah secara langsung, atau pesan paket bahan yang sudah ditakar per resep.
+            pantau harga komoditas per provinsi setiap hari, atau pesan paket bahan yang sudah ditakar per resep.
           </p>
           <div className="row gap">
             <button className="btn primary" onClick={() => go('jastip')}>Mulai titip belanja</button>
@@ -40,13 +41,13 @@ export default function Home({ go, live }) {
       <section className="container section" data-reveal>
         <div className="section-head">
           <h2>Tiga cara Palred bantu dapurmu</h2>
-          <p className="muted">Satu platform, dari pasar sampai kompor.</p>
+          <p className="muted">Dari pasar sampai kompor.</p>
         </div>
         <div className="features">
           <Feature
             color="var(--tint-red)"
             art={<Courier />}
-            tag="01 · Jastip"
+            tag="Jastip"
             title="Jastip dari pasar ke UMKM"
             text="Tulis daftar belanja, pilih pasar & jam antar. Shopper kami pilihkan bahan terbaik dan antar langsung ke warungmu."
             cta="Titip belanja"
@@ -55,56 +56,38 @@ export default function Home({ go, live }) {
           <Feature
             color="var(--tint-green)"
             art={<Billboard />}
-            tag="02 · Billboard"
-            title="Harga realtime per daerah"
-            text="Papan harga komoditas yang terus diperbarui dari pasar di tiap provinsi — acuan jual-beli yang adil."
+            tag="Billboard"
+            title="Harga harian per provinsi"
+            text="Papan harga pangan dari PIHPS Bank Indonesia, diperbarui tiap hari kerja. Patokan jual-beli yang adil."
             cta="Lihat billboard"
             onClick={() => go('harga')}
           />
           <Feature
             color="var(--tint-yellow)"
             art={<PackageBox items={['daging', 'kelapa', 'cabai', 'bawang']} label="Paket Rendang" />}
-            tag="03 · Paket"
+            tag="Paket"
             title="Paket bahan per masakan"
-            text="Pilih menu, tentukan porsi. Semua bahan sudah ditimbang sesuai takaran resep — tinggal masak."
+            text="Pilih menu, tentukan porsi. Semua bahan sudah ditimbang sesuai takaran resep, tinggal masak."
             cta="Pilih paket"
             onClick={() => go('paket')}
           />
         </div>
       </section>
 
-      <section className="container section" data-reveal>
-        <Movers pricing={pricing} />
-      </section>
-
       <section className="container section split" data-reveal>
         <div>
-          <span className="eyebrow">Harga hari ini · {region.name}</span>
+          <span className="eyebrow">Harga hari ini</span>
           <h2>Pantau sebelum belanja</h2>
           <p className="muted">
-            Harga di bawah bergerak otomatis mengikuti laporan pasar. Warna merah artinya naik dibanding pembukaan pagi.
+            Harga rata-rata nasional dari PIHPS Bank Indonesia, diperbarui tiap hari kerja. Merah artinya naik, hijau turun, dibanding hari data sebelumnya.
           </p>
           <button className="btn ghost" onClick={() => go('harga')}>Buka billboard lengkap →</button>
         </div>
-        <div className="mini-board">
-          {commodities.slice(0, 6).map((c) => {
-            const p = prices[c.id]
-            const diff = ((p.price - p.open) / p.open) * 100
-            return (
-              <div key={c.id} className={`mini-row ${p.flash ?? ''}`}>
-                <Produce type={c.icon} size={36} />
-                <div className="grow">
-                  <div className="strong">{c.name}</div>
-                  <div className="muted small">per {c.unit}</div>
-                </div>
-                <div className="mini-price">Rp{angka(p.price)}</div>
-                <span className={`chip ${diff >= 0 ? 'up' : 'down'}`}>
-                  {diff >= 0 ? '▲' : '▼'} {Math.abs(diff).toFixed(1)}%
-                </span>
-              </div>
-            )
-          })}
-        </div>
+        <MiniBoard pricing={pricing} />
+      </section>
+
+      <section className="container section" data-reveal>
+        <Movers pricing={pricing} />
       </section>
 
       <section className="container section" data-reveal>
@@ -148,16 +131,6 @@ export default function Home({ go, live }) {
           ))}
         </div>
       </section>
-
-      <section className="container section" data-reveal>
-        <div className="cta-band">
-          <div>
-            <h2>Punya warung atau katering?</h2>
-            <p>Daftar sebagai mitra UMKM dan dapatkan biaya jasa 0% untuk 5 pesanan pertama.</p>
-          </div>
-          <button className="btn light" onClick={() => go('jastip')}>Daftar mitra</button>
-        </div>
-      </section>
     </>
   )
 }
@@ -171,27 +144,5 @@ function Feature({ color, art, tag, title, text, cta, onClick }) {
       <p className="muted">{text}</p>
       <button className="link" onClick={onClick}>{cta} →</button>
     </article>
-  )
-}
-
-function Ticker({ prices }) {
-  const row = (suffix) =>
-    commodities.map((c) => {
-      const p = prices[c.id]
-      const diff = ((p.price - p.open) / p.open) * 100
-      return (
-        <span key={c.id + suffix} className="tick">
-          {c.name} <b className="mono">Rp{angka(p.price)}</b>
-          <i className={diff >= 0 ? 'up' : 'down'}>{diff >= 0 ? '▲' : '▼'}{Math.abs(diff).toFixed(1)}%</i>
-        </span>
-      )
-    })
-  return (
-    <div className="ticker" aria-label="Ticker harga komoditas">
-      <span className="live-pill"><span className="dot" /> LIVE</span>
-      <div className="ticker-track">
-        <div className="ticker-move">{row('a')}{row('b')}</div>
-      </div>
-    </div>
   )
 }

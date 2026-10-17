@@ -1,4 +1,4 @@
-// Ilustrasi sementara — semua digambar sebagai SVG inline, tanpa aset eksternal.
+// Ilustrasi sementara: semua digambar sebagai SVG inline, tanpa aset eksternal.
 
 const C = {
   red: '#E4573D',
@@ -199,8 +199,8 @@ export function HeroMarket() {
       </g>
       <g transform="translate(350 146)">
         <rect width="96" height="48" rx="8" fill="#14261E" />
-        <text x="48" y="20" textAnchor="middle" fill={C.leaf} fontFamily="JetBrains Mono, monospace" fontSize="11">CABAI/kg</text>
-        <text x="48" y="38" textAnchor="middle" fill={C.yellow} fontFamily="JetBrains Mono, monospace" fontWeight="700" fontSize="14">42.500</text>
+        <text x="48" y="20" textAnchor="middle" fill={C.leaf} fontFamily="JetBrains Mono, monospace" fontSize="11">HARGA PASAR</text>
+        <text x="48" y="38" textAnchor="middle" fill={C.yellow} fontFamily="JetBrains Mono, monospace" fontWeight="700" fontSize="14">per kg</text>
       </g>
       <g transform="translate(30 330)">
         <path d="M0 20h70l-6 60H6z" fill={C.red} />

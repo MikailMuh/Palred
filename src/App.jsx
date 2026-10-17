@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
-import { recipes, useLivePrices } from './data.js'
+import { recipes } from './data.js'
 import Home from './pages/Home.jsx'
 import { PriceDataContext, useFetchPriceData } from './prices.js'
 
@@ -28,10 +28,8 @@ const pageFromPath = (path) => {
 export default function App() {
   const priceData = useFetchPriceData()
   const [page, setPage] = useState(() => pageFromPath(window.location.pathname))
-  const [regionId] = useState('jkt')
   const [cart, setCart] = useState([])
   const [toast, setToast] = useState(null)
-  const live = useLivePrices(regionId)
 
   const go = (id) => {
     if (id !== page) window.history.pushState(null, '', PATHS[id])
@@ -46,7 +44,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const titles = { home: 'Palred — Pasar dalam genggaman', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred', kebijakan: 'Kebijakan Jastip · Palred' }
+    const titles = { home: 'Pasar dalam genggaman · Palred', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred', kebijakan: 'Kebijakan Jastip · Palred' }
     document.title = titles[page]
   }, [page])
 
@@ -106,7 +104,7 @@ export default function App() {
 
       <main>
         <Suspense fallback={<div className="page-loading container" role="status">Memuat halaman…</div>}>
-        {page === 'home' && <Home go={go} live={live} />}
+        {page === 'home' && <Home go={go} />}
         {page === 'jastip' && <Jastip />}
         {page === 'harga' && <Harga />}
         {page === 'paket' && <Paket addToCart={addToCart} />}
@@ -129,7 +127,7 @@ export default function App() {
               <button key={n.id} onClick={() => go(n.id)}>{n.label}</button>
             ))}
           </div>
-          <p className="muted small">© 2026 Palred · Desain prototipe — data harga masih simulasi</p>
+          <p className="muted small">© 2026 Palred · Prototipe. Harga dari PIHPS Bank Indonesia, barang di luar PIHPS berlabel estimasi</p>
         </div>
       </footer>
 
