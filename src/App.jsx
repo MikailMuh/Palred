@@ -116,20 +116,28 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        <div className="container footer-inner">
-          <div>
-            <div className="brand static">
-              <Logo size={28} />
-              <span>Palred</span>
+        <div className="container">
+          <div className="footer-top">
+            <div className="footer-brand">
+              <div className="brand static">
+                <Logo size={28} />
+                <span>Palred</span>
+              </div>
+              <p className="muted">Pasar tradisional, harga transparan, dapur UMKM makin efisien.</p>
             </div>
-            <p className="muted">Pasar tradisional, harga transparan, dapur UMKM makin efisien.</p>
+            <nav className="footer-col" aria-label="Menu footer">
+              <h4>Jelajahi</h4>
+              {NAV.slice(1).map((n) => (
+                <button key={n.id} onClick={() => go(n.id)}>{n.label}</button>
+              ))}
+              <button onClick={() => go('kebijakan')}>Kebijakan jastip</button>
+            </nav>
+            <div className="footer-col">
+              <h4>Sumber data</h4>
+              <p className="muted small">Harga dari PIHPS Bank Indonesia, rata-rata per provinsi. Barang di luar PIHPS berlabel estimasi.</p>
+            </div>
           </div>
-          <div className="footer-links">
-            {NAV.slice(1).map((n) => (
-              <button key={n.id} onClick={() => go(n.id)}>{n.label}</button>
-            ))}
-          </div>
-          <p className="muted small">© 2026 Palred · Prototipe. Harga dari PIHPS Bank Indonesia, barang di luar PIHPS berlabel estimasi</p>
+          <p className="footer-bottom muted small">© 2026 Palred · Prototipe</p>
         </div>
       </footer>
 

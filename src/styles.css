@@ -174,7 +174,7 @@ p { line-height: 1.6; margin: 0 0 1rem; }
 .recipe-meta { padding: 16px 20px 20px; display: grid; gap: 4px; }
 .recipe-meta p { margin: 0 0 6px; }
 .price { font-weight: 800; color: var(--forest-text); font-size: 1.5rem; line-height: 1.1; }
-.price.lg { font-size: 2.2rem; }
+.price.lg { font-size: 1.6rem; }
 .ing-icons { display: flex; gap: 2px; margin-bottom: 10px; }
 
 
@@ -299,7 +299,7 @@ button.board-row:hover { background: #1c3529; }
 .drawer-hero { background: linear-gradient(160deg, var(--cream-2), var(--yellow-soft)); padding: 24px 70px 8px; }
 .drawer-body { padding: 24px; overflow-y: auto; flex: 1; }
 .drawer-body h3 { margin-top: 22px; }
-.close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: var(--card); font-size: 1.5rem; line-height: 1; box-shadow: var(--shadow); z-index: 1; }
+.close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: var(--card); display: grid; place-items: center; padding: 0; color: var(--ink); box-shadow: var(--shadow); z-index: 1; }
 .ing-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .ing-list li { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
 .qty { font-weight: 700; color: var(--forest-text); background: var(--forest-soft); padding: 4px 10px; border-radius: 8px; font-size: 0.85rem; white-space: nowrap; }
@@ -310,13 +310,17 @@ button.board-row:hover { background: #1c3529; }
 @keyframes slide { from { transform: translateX(40px); opacity: 0; } }
 
 /* footer & toast */
-.footer { border-top: 1px solid var(--line); padding: 40px 0; margin-top: 24px; }
-.footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; }
-.footer-inner > p { grid-column: 1 / -1; margin: 0; }
-.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-.footer-links button { font-weight: 600; color: var(--forest-text); }
+.footer { background: var(--cream-2); border-top: 1px solid var(--line); padding: 48px 0 24px; margin-top: 48px; }
+.footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1.2fr; gap: 40px; align-items: start; }
+.footer-brand p { margin: 12px 0 0; max-width: 32ch; }
+.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.footer-col h4 { margin: 0 0 8px; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.footer-col p { margin: 0; }
+.footer-col button { min-height: 36px; font-weight: 600; color: var(--forest-text); text-align: left; }
+.footer-col button:hover { text-decoration: underline; }
+.footer-bottom { margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
 .brand.static { margin-bottom: 10px; }
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--forest-2); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 600; z-index: 60; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); animation: toast 0.3s ease-out; max-width: calc(100% - 32px); }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--forest-2); color: #fff; padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; z-index: 60; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); animation: toast 0.3s ease-out; max-width: calc(100% - 32px); }
 @keyframes toast { from { opacity: 0; transform: translate(-50%, 10px); } }
 
 /* responsif */
@@ -360,7 +364,13 @@ button.board-row:hover { background: #1c3529; }
   .pack-note { grid-template-columns: 1fr; }
   .pack-mini { max-width: 160px; }
   .drawer-hero { padding: 24px 40px 8px; }
-    .footer-inner { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-col button { min-height: 44px; }
+    .footer-col { grid-column: 1 / -1; }
+    .footer-col nav, nav.footer-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
+    nav.footer-col h4 { grid-column: 1 / -1; }
+    .footer { margin-top: 32px; padding-top: 36px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -387,7 +397,15 @@ button.board-row:hover { background: #1c3529; }
 .cart-line { display: flex; gap: 16px; align-items: flex-start; }
 .cart-dish { width: 88px; flex-shrink: 0; border-radius: 12px; overflow: hidden; }
 .link-btn { text-decoration: underline; font-weight: 700; color: var(--forest-text); min-height: 44px; }
-@media (max-width: 680px) { .cart-line { flex-wrap: wrap; } }
+@media (max-width: 680px) {
+  .cart-line { display: grid; grid-template-columns: 72px 1fr; gap: 12px 14px; align-items: start; }
+  .cart-dish { width: 72px; }
+  .cart-line .row { flex-wrap: wrap; row-gap: 8px; }
+  .cart-line > .price { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; font-size: 1.25rem; padding-top: 12px; border-top: 1px dashed var(--line); }
+  .cart-line > .price::before { content: 'Subtotal'; font-size: 0.85rem; font-weight: 600; color: var(--ink-2); }
+  .drawer-foot { padding: 12px 16px; gap: 12px; }
+  .drawer-foot .btn { padding-inline: 16px; }
+}
 
 .mini-row .grow .strong { font-weight: 500; }
 .cat-price { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1rem; color: var(--forest-text); }
@@ -444,3 +462,11 @@ main:has(.page-loading) ~ .footer { visibility: hidden; }
 .mini-price { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.05rem; }
 .mini-board-empty { min-height: 120px; display: grid; place-items: center; color: var(--ink-2); }
 .offline-banner { background: var(--yellow-soft); color: var(--ink); text-align: center; padding: 8px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--line); }
+.location-picker { display: grid; gap: 8px; margin-bottom: 16px; }
+.location-picker p { margin: 0; }
+.summary .btn.block { margin-top: 12px; }
+.summary .btn.block + .btn.block { margin-top: 10px; }
+.sum-item { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.sum-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sum-item .tag-est { margin-left: 0; flex-shrink: 0; white-space: nowrap; }
+.sum-list li .mono { flex-shrink: 0; }
