@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
+import OfflineBanner from './components/OfflineBanner.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import { recipes } from './data.js'
 import Home from './pages/Home.jsx'
@@ -101,6 +102,7 @@ export default function App() {
           </div>
         </div>
       </header>
+      <OfflineBanner />
 
       <main>
         <Suspense fallback={<div className="page-loading container" role="status">Memuat halaman…</div>}>

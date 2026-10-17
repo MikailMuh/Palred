@@ -443,3 +443,4 @@ main:has(.page-loading) ~ .footer { visibility: hidden; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 .mini-price { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.05rem; }
 .mini-board-empty { min-height: 120px; display: grid; place-items: center; color: var(--ink-2); }
+.offline-banner { background: var(--yellow-soft); color: var(--ink); text-align: center; padding: 8px 16px; font-size: 0.9rem; border-bottom: 1px solid var(--line); }
