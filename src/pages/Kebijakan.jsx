@@ -15,6 +15,14 @@ const RULES = [
     title: 'Barang rusak atau tidak sesuai',
     body: 'Laporkan lewat WhatsApp saat barang diterima, lengkap dengan foto. Tim akan membicarakan solusinya denganmu, misalnya ganti barang atau kurangi tagihan.',
   },
+  {
+    title: 'Lokasimu',
+    body: 'Tombol "Pakai lokasi saya" hanya dipakai untuk mencari pasar terdekat dan menghitung jarak. Lokasimu dibaca di browser dan tidak disimpan atau dikirim ke tim. Kamu bisa menolaknya dan memilih pasar sendiri.',
+  },
+  {
+    title: 'Ongkir',
+    body: 'Ongkir di situs adalah perkiraan dari jarak garis lurus dikali 1,3, bukan rute jalan. Kalau lokasimu belum dibaca atau di luar area layanan, tim menghitung ongkir lewat WhatsApp sebelum pesanan diproses.',
+  },
 ]
 
 export default function Kebijakan({ go }) {

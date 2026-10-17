@@ -28,11 +28,12 @@ export const commodities = [
   { id: 'kelapa', name: 'Kelapa Parut', unit: 'butir', cat: 'Sembako', icon: 'kelapa', base: 11000 },
 ]
 
+// Coordinates from OpenStreetMap (Nominatim, 17 Okt 2026). TODO: verify the entrance points. Opening hours are our estimate, TODO verify.
 export const markets = [
-  { id: 'kramatjati', name: 'Pasar Induk Kramat Jati', area: 'Jakarta Timur', km: 3.2, open: '00.00 – 10.00', rating: 4.7 },
-  { id: 'senen', name: 'Pasar Senen', area: 'Jakarta Pusat', km: 5.8, open: '04.00 – 16.00', rating: 4.5 },
-  { id: 'minggu', name: 'Pasar Minggu', area: 'Jakarta Selatan', km: 7.1, open: '03.00 – 14.00', rating: 4.6 },
-  { id: 'kebayoran', name: 'Pasar Kebayoran Lama', area: 'Jakarta Selatan', km: 9.4, open: '02.00 – 12.00', rating: 4.4 },
+  { id: 'kramatjati', name: 'Pasar Induk Kramat Jati', area: 'Jakarta Timur', lat: -6.2942219, lng: 106.8720479, open: '00.00 – 10.00' },
+  { id: 'senen', name: 'Pasar Senen', area: 'Jakarta Pusat', lat: -6.1744233, lng: 106.8445744, open: '04.00 – 16.00' },
+  { id: 'minggu', name: 'Pasar Minggu', area: 'Jakarta Selatan', lat: -6.2833322, lng: 106.8448558, open: '03.00 – 14.00' },
+  { id: 'kebayoran', name: 'Pasar Kebayoran Lama', area: 'Jakarta Selatan', lat: -6.2371412, lng: 106.7809418, open: '02.00 – 12.00' },
 ]
 
 export const slots = ['05.00 – 07.00', '07.00 – 09.00', '09.00 – 11.00', '13.00 – 15.00']

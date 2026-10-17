@@ -103,7 +103,9 @@ function Detail({ recipe, pricing, onClose, addToCart }) {
   return (
     <div className="overlay" onClick={onClose}>
       <div className="drawer" role="dialog" aria-modal="true" aria-label={recipe.name} onClick={(e) => e.stopPropagation()}>
-        <button className="close" onClick={onClose} aria-label="Tutup">×</button>
+        <button className="close" onClick={onClose} aria-label="Tutup">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" /></svg>
+        </button>
         <div className="drawer-hero">
           <Dish {...recipe.dish} />
         </div>

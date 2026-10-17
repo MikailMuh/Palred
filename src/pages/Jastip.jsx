@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Produce } from '../components/Art.jsx'
+import LocationPicker from '../components/LocationPicker.jsx'
 import { angka, commodities, markets, rupiah, slots } from '../data.js'
+import { SERVICE_RADIUS_KM, deliveryFee, rankMarkets } from '../geo.js'
 import { formatTanggal } from '../prices.js'
 import { usePricing } from '../pricing.js'
+import { useUserLocation } from '../useUserLocation.js'
 
 // Pasar di daftar semuanya di Jakarta, jadi patokan harga memakai DKI Jakarta (fallback rata-rata nasional kalau kosong).
 const REGION = 'DKI Jakarta'
@@ -12,6 +15,16 @@ const IF_OUT = [
   { id: 'lewati', label: 'Lewati saja', note: 'Barang itu tidak dibeli dan tidak ditagih.' },
   { id: 'hubungi', label: 'Hubungi saya dulu', note: 'Tim bertanya lewat WhatsApp sebelum membeli apa pun.' },
 ]
+
+const kmText = (km) => km.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+
+function OngkirRow({ ongkir, km }) {
+  return ongkir == null ? (
+    <div><dt>Ongkir</dt><dd className="small">Dihitung tim lewat WhatsApp</dd></div>
+  ) : (
+    <div><dt>Ongkir (estimasi, ± {kmText(km)} km)</dt><dd>{rupiah(ongkir)}</dd></div>
+  )
+}
 
 const PHONE_PATTERN = /^(\+62|62|0)8\d{8,11}$/
 
@@ -27,6 +40,7 @@ function validate(form) {
 export default function Jastip() {
   const pricing = usePricing(REGION)
   const priceFor = (c) => (c.pihpsKey ? pricing.refOf(c.pihpsKey)?.value : c.base)
+  const loc = useUserLocation()
   const [market, setMarket] = useState(markets[0].id)
   const [qty, setQty] = useState({})
   const [custom, setCustom] = useState('')
@@ -38,14 +52,22 @@ export default function Jastip() {
   const errors = validate(form)
   const showError = (k) => (submitted ? errors[k] : undefined)
 
-  const m = markets.find((x) => x.id === market)
+  const ranked = useMemo(() => (loc.coords ? rankMarkets(markets, loc.coords) : null), [loc.coords])
+  const outside = ranked != null && ranked[0].straightKm > SERVICE_RADIUS_KM
+  const shown = ranked ?? markets
+  const m = shown.find((x) => x.id === market)
+  const km = ranked && !outside ? m.km : null
+
+  useEffect(() => {
+    if (ranked && !outside) setMarket(ranked[0].id)
+  }, [ranked, outside])
   const lines = commodities
     .filter((c) => qty[c.id] > 0 && priceFor(c) != null)
     .map((c) => ({ ...c, n: qty[c.id], sub: qty[c.id] * priceFor(c) }))
   const subtotal = lines.reduce((s, l) => s + l.sub, 0)
   const jasa = Math.max(15000, subtotal * 0.08)
-  const ongkir = Math.round(8000 + m.km * 2500)
-  const total = subtotal + jasa + ongkir
+  const ongkir = km == null ? null : deliveryFee(km)
+  const total = subtotal + jasa + (ongkir ?? 0)
 
   const change = (id, d) => setQty((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) + d) }))
 
@@ -62,7 +84,7 @@ export default function Jastip() {
   if (ordered) {
     return (
       <Ringkasan
-        order={{ market: m, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, total }}
+        order={{ market: m, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, km, total }}
         pricingDate={pricing.date}
         onBack={() => setOrdered(false)}
         onReset={() => {
@@ -104,14 +126,15 @@ export default function Jastip() {
         <div className="stack">
           <div className="card pad">
             <h2 className="h-step"><span>1</span> Pilih pasar</h2>
+            <LocationPicker status={loc.status} outside={outside} onRequest={loc.request} onClear={loc.clear} />
             <div className="market-grid">
-              {markets.map((x) => (
+              {shown.map((x, i) => (
                 <button key={x.id} className={`market ${market === x.id ? 'selected' : ''}`} onClick={() => setMarket(x.id)}>
                   <div className="strong">{x.name}</div>
-                  <div className="muted small">{x.area} · {x.km} km</div>
+                  <div className="muted small">{x.area}{ranked && !outside ? ` · ± ${kmText(x.km)} km` : ''}</div>
                   <div className="row between small">
                     <span>Buka {x.open}</span>
-                    <span>★ {x.rating}</span>
+                    {ranked && !outside && i === 0 && <span className="tag-est">Terdekat</span>}
                   </div>
                 </button>
               ))}
@@ -210,9 +233,10 @@ export default function Jastip() {
           <dl className="sum-total">
             <div><dt>Estimasi belanja</dt><dd>{rupiah(subtotal)}</dd></div>
             <div><dt>Biaya jasa (8%, min. 15rb)</dt><dd>{rupiah(jasa)}</dd></div>
-            <div><dt>Ongkir · {m.km} km</dt><dd>{rupiah(ongkir)}</dd></div>
+            <OngkirRow ongkir={ongkir} km={km} />
             <div className="grand"><dt>Total estimasi</dt><dd>{rupiah(total)}</dd></div>
           </dl>
+          {ongkir == null && <p className="muted small">Total belum termasuk ongkir.</p>}
           <button className="btn primary block" disabled={lines.length === 0 && !custom} onClick={submit}>
             Lanjut ke ringkasan pesanan
           </button>
@@ -223,7 +247,7 @@ export default function Jastip() {
 }
 
 function Ringkasan({ order, pricingDate, onBack, onReset }) {
-  const { market, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, total } = order
+  const { market, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, km, total } = order
   return (
     <section className="container page">
       <header className="page-head">
@@ -258,7 +282,10 @@ function Ringkasan({ order, pricingDate, onBack, onReset }) {
           <ul className="sum-list">
             {lines.map((l) => (
               <li key={l.id}>
-                <span>{l.n} {l.unit} {l.name} <span className="tag-est">{l.pihpsKey ? 'PIHPS' : 'estimasi'}</span></span>
+                <span className="sum-item">
+                  <span className="sum-name">{l.n} {l.unit} {l.name}</span>
+                  <span className="tag-est">{l.pihpsKey ? 'PIHPS' : 'estimasi'}</span>
+                </span>
                 <span className="mono">{rupiah(l.sub)}</span>
               </li>
             ))}
@@ -267,9 +294,10 @@ function Ringkasan({ order, pricingDate, onBack, onReset }) {
           <dl className="sum-total">
             <div><dt>Estimasi belanja</dt><dd>{rupiah(subtotal)}</dd></div>
             <div><dt>Biaya jasa (8%, min. 15rb)</dt><dd>{rupiah(jasa)}</dd></div>
-            <div><dt>Ongkir · {market.km} km</dt><dd>{rupiah(ongkir)}</dd></div>
+            <OngkirRow ongkir={ongkir} km={km} />
             <div className="grand"><dt>Total estimasi</dt><dd>{rupiah(total)}</dd></div>
           </dl>
+          {ongkir == null && <p className="muted small">Total belum termasuk ongkir.</p>}
           {pricingDate && <p className="muted small">Harga PIHPS per {formatTanggal(pricingDate)}.</p>}
           <button className="btn ghost block" onClick={onBack}>Ubah pesanan</button>
           <button className="btn light block" onClick={onReset}>Buat titipan baru</button>
