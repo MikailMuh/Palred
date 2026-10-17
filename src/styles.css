@@ -310,11 +310,15 @@ button.board-row:hover { background: #1c3529; }
 @keyframes slide { from { transform: translateX(40px); opacity: 0; } }
 
 /* footer & toast */
-.footer { border-top: 1px solid var(--line); padding: 40px 0; margin-top: 24px; }
-.footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; }
-.footer-inner > p { grid-column: 1 / -1; margin: 0; }
-.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-.footer-links button { font-weight: 600; color: var(--forest-text); }
+.footer { background: var(--cream-2); border-top: 1px solid var(--line); padding: 48px 0 24px; margin-top: 48px; }
+.footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1.2fr; gap: 40px; align-items: start; }
+.footer-brand p { margin: 12px 0 0; max-width: 32ch; }
+.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.footer-col h4 { margin: 0 0 8px; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.footer-col p { margin: 0; }
+.footer-col button { min-height: 36px; font-weight: 600; color: var(--forest-text); text-align: left; }
+.footer-col button:hover { text-decoration: underline; }
+.footer-bottom { margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
 .brand.static { margin-bottom: 10px; }
 .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--forest-2); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 600; z-index: 60; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); animation: toast 0.3s ease-out; max-width: calc(100% - 32px); }
 @keyframes toast { from { opacity: 0; transform: translate(-50%, 10px); } }
@@ -360,7 +364,13 @@ button.board-row:hover { background: #1c3529; }
   .pack-note { grid-template-columns: 1fr; }
   .pack-mini { max-width: 160px; }
   .drawer-hero { padding: 24px 40px 8px; }
-    .footer-inner { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-col button { min-height: 44px; }
+    .footer-col { grid-column: 1 / -1; }
+    .footer-col nav, nav.footer-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
+    nav.footer-col h4 { grid-column: 1 / -1; }
+    .footer { margin-top: 32px; padding-top: 36px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; }
