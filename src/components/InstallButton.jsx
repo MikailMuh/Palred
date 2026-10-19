@@ -10,7 +10,7 @@ export default function InstallButton({ className = 'btn ghost' }) {
   return (
     <div className="install">
       <button className={className} onClick={canInstall ? install : () => setHint((h) => !h)} aria-expanded={canInstall ? undefined : hint}>
-        Pasang Palred
+        Pasang TitipinBro
       </button>
       {hint && (
         <p className="small muted" role="status">

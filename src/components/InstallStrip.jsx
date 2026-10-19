@@ -37,7 +37,7 @@ export default function InstallStrip() {
           </svg>
         </span>
         <div className="install-text">
-          <strong>Pasang Palred di HP-mu</strong>
+          <strong>Pasang TitipinBro di HP-mu</strong>
           <span className="small muted">Buka dari layar utama. Harga terakhir tetap bisa dilihat tanpa sinyal.</span>
           {hint && <span className="small" role="status">Ketuk tombol Bagikan di Safari, lalu pilih Tambahkan ke Layar Utama.</span>}
         </div>

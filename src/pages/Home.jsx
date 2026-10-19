@@ -25,7 +25,7 @@ export default function Home({ go }) {
             <span className="hl">Harga jelas, bahan siap masak.</span>
           </h1>
           <p className="lead">
-            Palred menghubungkan dapur UMKM dengan pasar tradisional: titip belanja ke shopper kami,
+            TitipinBro menghubungkan dapur UMKM dengan pasar tradisional: titip belanja ke shopper kami,
             pantau harga komoditas per provinsi setiap hari, atau pesan paket bahan yang sudah ditakar per resep.
           </p>
           <div className="row gap hero-cta">
@@ -43,7 +43,7 @@ export default function Home({ go }) {
 
       <section className="container section" data-reveal>
         <div className="section-head">
-          <h2>Tiga cara Palred bantu dapurmu</h2>
+          <h2>Tiga cara TitipinBro bantu dapurmu</h2>
           <p className="muted">Dari pasar sampai kompor.</p>
         </div>
         <div className="features">

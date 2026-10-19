@@ -1,4 +1,5 @@
-// Ilustrasi sementara: semua digambar sebagai SVG inline, tanpa aset eksternal.
+// Ilustrasi sementara: digambar sebagai SVG inline. Logo memakai aset TitipinBro.
+import logoMark from '../assets/logo-mark.png'
 
 const C = {
   red: '#E4573D',
@@ -219,7 +220,7 @@ export function Courier() {
       <path d="M20 120h40M10 140h50M30 160h30" stroke={C.forest} strokeOpacity=".25" strokeWidth="5" strokeLinecap="round" />
       <rect x="70" y="80" width="72" height="62" rx="8" fill={C.red} />
       <rect x="82" y="96" width="48" height="16" rx="4" fill={C.cream} />
-      <text x="106" y="108" textAnchor="middle" fontSize="10" fontWeight="800" fill={C.red} fontFamily="Plus Jakarta Sans, sans-serif">PALRED</text>
+      <text x="106" y="108" textAnchor="middle" fontSize="10" fontWeight="800" fill={C.forest} fontFamily="Titan One, sans-serif">TITIPIN</text>
       <path d="M90 150h110l30-30h30l-10 40H80z" fill={C.forest} />
       <path d="M200 120l20-40h14" stroke="#14261E" strokeWidth="7" strokeLinecap="round" fill="none" />
       <circle cx="100" cy="172" r="22" fill="#14261E" />
@@ -306,13 +307,7 @@ export function Dish({ base = '#E8B04B', garnish = C.green, style = 'bowl' }) {
 }
 
 export function Logo({ size = 32 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
-      <rect width="64" height="64" rx="16" fill={C.forest} />
-      <path d="M18 22c8 2 26 6 30 22 1 3-2 5-4 3-8-8-16-13-27-19-3-2-2-7 1-6z" fill={C.red} />
-      <path d="M18 22c-1-4 0-7 4-9" stroke={C.leaf} strokeWidth="4" fill="none" strokeLinecap="round" />
-    </svg>
-  )
+  return <img src={logoMark} width={size} height={size} alt="" className="logo-mark" />
 }
 
 // Moves smaller than MIN_RANGE of the average price are drawn nearly flat, so a 0.3% wobble does not look like a crash.

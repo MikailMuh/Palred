@@ -7,17 +7,17 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'favicon.png', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Palred',
-        short_name: 'Palred',
-        description: 'Harga pangan harian dari PIHPS Bank Indonesia, jastip pasar, dan paket bahan masak.',
+        name: 'TitipinBro',
+        short_name: 'TitipinBro',
+        description: 'Lu Butuh, Kita Titipin. Harga pangan harian dari PIHPS Bank Indonesia, jastip pasar, dan paket bahan masak.',
         lang: 'id',
         start_url: '/',
         scope: '/',
         display: 'standalone',
-        background_color: '#fbf6ec',
-        theme_color: '#1f4d3a',
+        background_color: '#fefaee',
+        theme_color: '#134630',
         icons: [
           { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
@@ -25,7 +25,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
         globIgnores: ['og-image.png'],
         navigateFallback: '/index.html',
         runtimeCaching: [

@@ -47,7 +47,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const titles = { home: 'Pasar dalam genggaman · Palred', jastip: 'Jastip Pasar · Palred', harga: 'Billboard Harga · Palred', paket: 'Paket Masak · Palred', keranjang: 'Keranjang · Palred', kebijakan: 'Kebijakan Jastip · Palred' }
+    const titles = { home: 'TitipinBro · Lu Butuh, Kita Titipin', jastip: 'Jastip Pasar · TitipinBro', harga: 'Billboard Harga · TitipinBro', paket: 'Paket Masak · TitipinBro', keranjang: 'Keranjang · TitipinBro', kebijakan: 'Kebijakan Jastip · TitipinBro' }
     document.title = titles[page]
   }, [page])
 
@@ -81,9 +81,9 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="container topbar-inner">
-          <button className="brand" onClick={() => go('home')}>
-            <Logo />
-            <span>Palred</span>
+          <button className="brand" onClick={() => go('home')} aria-label="TitipinBro, ke beranda">
+            <Logo size={40} />
+            <span className="wordmark">Titipin<b>Bro</b></span>
           </button>
           <nav className="nav" aria-label="Navigasi utama">
             {NAV.map((n) => (
@@ -122,9 +122,10 @@ export default function App() {
           <div className="footer-top">
             <div className="footer-brand">
               <div className="brand static">
-                <Logo size={28} />
-                <span>Palred</span>
+                <Logo size={36} />
+                <span className="wordmark">Titipin<b>Bro</b></span>
               </div>
+              <p className="tagline">Lu Butuh, Kita Titipin.</p>
               <p className="muted">Pasar tradisional, harga transparan, dapur UMKM makin efisien.</p>
               <InstallButton className="btn ghost sm" />
             </div>
@@ -140,7 +141,7 @@ export default function App() {
               <p className="muted small">Harga dari PIHPS Bank Indonesia, rata-rata per provinsi. Barang di luar PIHPS berlabel estimasi.</p>
             </div>
           </div>
-          <p className="footer-bottom muted small">© {new Date().getFullYear()} Palred · Prototipe</p>
+          <p className="footer-bottom muted small">© {new Date().getFullYear()} TitipinBro · Prototipe</p>
         </div>
       </footer>
 
