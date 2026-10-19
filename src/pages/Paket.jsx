@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Dish, PackageBox, Produce } from '../components/Art.jsx'
 import { recipes, rupiah } from '../data.js'
-import { formatTanggal } from '../prices.js'
+import { formatTanggal, formatWaktu } from '../prices.js'
 import { usePricing } from '../pricing.js'
 
 const TYPES = ['Semua', 'Berkuah', 'Goreng', 'Sayur']
@@ -49,7 +49,7 @@ export default function Paket({ addToCart }) {
       )}
       {pricing.date && (
         <p className="small muted data-date">
-          Harga paket dihitung dari patokan PIHPS Bank Indonesia per {formatTanggal(pricing.date)} (rata-rata nasional). Bahan di luar PIHPS memakai estimasi.
+          Harga paket dihitung dari patokan PIHPS Bank Indonesia per {formatTanggal(pricing.date)} (rata-rata nasional). Bahan di luar PIHPS memakai estimasi.{pricing.checkedAt && formatWaktu(pricing.checkedAt, false) && ` Terakhir dicek ${formatWaktu(pricing.checkedAt, false)}.`}
         </p>
       )}
 

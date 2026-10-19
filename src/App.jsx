@@ -1,16 +1,18 @@
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Logo } from './components/Art.jsx'
+import InstallButton from './components/InstallButton.jsx'
 import OfflineBanner from './components/OfflineBanner.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import { recipes } from './data.js'
+import { lazyRetry } from './lazyRetry.js'
 import Home from './pages/Home.jsx'
 import { PriceDataContext, useFetchPriceData } from './prices.js'
 
-const Jastip = lazy(() => import('./pages/Jastip.jsx'))
-const Harga = lazy(() => import('./pages/Harga.jsx'))
-const Paket = lazy(() => import('./pages/Paket.jsx'))
-const Keranjang = lazy(() => import('./pages/Keranjang.jsx'))
-const Kebijakan = lazy(() => import('./pages/Kebijakan.jsx'))
+const Jastip = lazyRetry(() => import('./pages/Jastip.jsx'))
+const Harga = lazyRetry(() => import('./pages/Harga.jsx'))
+const Paket = lazyRetry(() => import('./pages/Paket.jsx'))
+const Keranjang = lazyRetry(() => import('./pages/Keranjang.jsx'))
+const Kebijakan = lazyRetry(() => import('./pages/Kebijakan.jsx'))
 
 const NAV = [
   { id: 'home', label: 'Beranda' },
@@ -124,6 +126,7 @@ export default function App() {
                 <span>Palred</span>
               </div>
               <p className="muted">Pasar tradisional, harga transparan, dapur UMKM makin efisien.</p>
+              <InstallButton className="btn ghost sm" />
             </div>
             <nav className="footer-col" aria-label="Menu footer">
               <h4>Jelajahi</h4>
@@ -137,7 +140,7 @@ export default function App() {
               <p className="muted small">Harga dari PIHPS Bank Indonesia, rata-rata per provinsi. Barang di luar PIHPS berlabel estimasi.</p>
             </div>
           </div>
-          <p className="footer-bottom muted small">© 2026 Palred · Prototipe</p>
+          <p className="footer-bottom muted small">© {new Date().getFullYear()} Palred · Prototipe</p>
         </div>
       </footer>
 

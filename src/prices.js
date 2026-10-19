@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
 
@@ -19,6 +19,25 @@ export const PRICE_GROUPS = [
 export const formatTanggal = (iso, withYear = true) => {
   const [y, m, d] = iso.split('-').map(Number)
   return `${d} ${MONTHS[m - 1]}${withYear ? ` ${y}` : ''}`
+}
+
+const DAYS = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+
+export const formatHari = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number)
+  return DAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()]
+}
+
+// Waktu bot terakhir mengecek PIHPS, selalu dalam zona Asia/Jakarta. Mengembalikan null kalau updatedAt kosong atau rusak.
+export const formatWaktu = (iso, withYear = true) => {
+  const t = Date.parse(iso)
+  if (Number.isNaN(t)) return null
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+      .formatToParts(t)
+      .map((x) => [x.type, x.value]),
+  )
+  return `${Number(p.day)} ${MONTHS[Number(p.month) - 1]}${withYear ? ` ${p.year}` : ''}, ${p.hour}.${p.minute} WIB`
 }
 
 // Tanggal terbaru sering baru terisi sebagian provinsi, jadi "terbaru" = tanggal terbaru yang cukup lengkap.
@@ -87,26 +106,52 @@ export const PriceDataContext = createContext({ status: 'loading', retry: () => 
 
 export const usePriceData = () => useContext(PriceDataContext)
 
+const REFRESH_AFTER_MS = 60 * 60 * 1000
+
+const toState = (data) => {
+  const empty = !data?.prices || !Object.values(data.prices).some((byDate) => Object.keys(byDate).length > 0)
+  return empty ? { status: 'empty' } : { status: 'ready', data, meta: { ...analyze(data), checkedAt: data.updatedAt ?? null } }
+}
+
+const loadPrices = (signal) =>
+  fetch('/data/prices.json', { signal }).then((res) => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    return res.json()
+  })
+
 export function useFetchPriceData() {
   const [state, setState] = useState({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
+  const fetchedAt = useRef(0)
 
   useEffect(() => {
     const ctrl = new AbortController()
-    fetch('/data/prices.json', { signal: ctrl.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json()
-      })
+    loadPrices(ctrl.signal)
       .then((data) => {
-        const empty = !data?.prices || !Object.values(data.prices).some((byDate) => Object.keys(byDate).length > 0)
-        setState(empty ? { status: 'empty' } : { status: 'ready', data, meta: analyze(data) })
+        fetchedAt.current = Date.now()
+        setState(toState(data))
       })
       .catch((err) => {
         if (err.name !== 'AbortError') setState({ status: 'error' })
       })
     return () => ctrl.abort()
   }, [attempt])
+
+  // Tab dibiarkan terbuka berjam-jam: ambil ulang diam-diam saat tab aktif lagi. Gagal tidak mengganti data yang sudah tampil.
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible' || Date.now() - fetchedAt.current < REFRESH_AFTER_MS) return
+      loadPrices()
+        .then((data) => {
+          fetchedAt.current = Date.now()
+          const next = toState(data)
+          if (next.status === 'ready') setState(next)
+        })
+        .catch(() => {})
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [])
 
   const retry = () => {
     setState({ status: 'loading' })

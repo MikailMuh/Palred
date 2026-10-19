@@ -315,16 +315,21 @@ export function Logo({ size = 32 }) {
   )
 }
 
-export function Sparkline({ data, w = 96, h = 28, up, tone = 'dark' }) {
+// Moves smaller than MIN_RANGE of the average price are drawn nearly flat, so a 0.3% wobble does not look like a crash.
+const MIN_RANGE = 0.03
+
+export function Sparkline({ data, w = 96, h = 28, up, tone = 'dark', fluid = false }) {
   if (!data || data.length < 2) return null
   const min = Math.min(...data)
   const max = Math.max(...data)
-  const span = max - min || 1
+  const mid = (min + max) / 2
+  const span = Math.max(max - min, Math.abs(mid) * MIN_RANGE) || 1
+  const base = mid - span / 2
   const pts = data
-    .map((v, i) => `${(i / (data.length - 1)) * w},${h - 2 - ((v - min) / span) * (h - 4)}`)
+    .map((v, i) => `${(i / (data.length - 1)) * w},${h - 2 - ((v - base) / span) * (h - 4)}`)
     .join(' ')
   return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
+    <svg width={fluid ? '100%' : w} height={h} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio={fluid ? 'none' : undefined} aria-hidden="true">
       <polyline
         points={pts}
         fill="none"
@@ -333,6 +338,7 @@ export function Sparkline({ data, w = 96, h = 28, up, tone = 'dark' }) {
         strokeWidth="2"
         strokeLinejoin="round"
         strokeLinecap="round"
+        vectorEffect={fluid ? 'non-scaling-stroke' : undefined}
       />
     </svg>
   )

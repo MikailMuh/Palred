@@ -1,28 +1,28 @@
 import { Sparkline } from './Art.jsx'
 import { rupiah } from '../data.js'
-import { formatTanggal } from '../prices.js'
+import DataStamp from './DataStamp.jsx'
 import { useCountUp } from '../useCountUp.js'
 
 const ITEMS = [
-  { key: 'cabai-merah-keriting', label: 'Cabai merah keriting' },
-  { key: 'telur-ayam', label: 'Telur ayam' },
-  { key: 'beras-medium-1', label: 'Beras medium' },
+  { key: 'cabai-merah-keriting', label: 'Cabai merah keriting', short: 'Cabai keriting' },
+  { key: 'telur-ayam', label: 'Telur ayam', short: 'Telur ayam' },
+  { key: 'beras-medium-1', label: 'Beras medium', short: 'Beras medium' },
 ]
 
 const persen = (n) => Math.abs(n).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
 
-function HeroPrice({ label, price, diff, series }) {
+function HeroPrice({ label, short, price, diff, series }) {
   const shown = useCountUp(price)
   const dir = diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat'
   return (
     <div>
-      <dt>{label}</dt>
+      <dt><span className="lbl-full">{label}</span><span className="lbl-short">{short}</span></dt>
       <dd>
         <span className="price-now">{rupiah(shown)}</span>
         {diff != null && (
           <span className={`chip ${dir}`}>{diff > 0 ? '▲' : diff < 0 ? '▼' : '■'} {persen(diff)}%</span>
         )}
-        <Sparkline data={series} w={88} h={26} up={diff > 0} tone="light" />
+        <Sparkline data={series} w={88} h={26} up={diff > 0} tone="light" fluid />
       </dd>
     </div>
   )
@@ -35,13 +35,15 @@ export default function HeroPrices({ pricing }) {
   return (
     <div className="hero-prices">
       <dl>
-        {ITEMS.map(({ key, label }) => {
+        {ITEMS.map(({ key, label, short }) => {
           const price = pricing.priceOf(key)
           if (price == null) return null
-          return <HeroPrice key={key} label={label} price={price} diff={pricing.changeOf(key)} series={pricing.seriesOf(key)} />
+          return <HeroPrice key={key} label={label} short={short} price={price} diff={pricing.changeOf(key)} series={pricing.seriesOf(key)} />
         })}
       </dl>
-      <p className="muted small no-m">Rata-rata nasional per {formatTanggal(pricing.date)} · PIHPS Bank Indonesia. Garis kecil = 14 hari terakhir.</p>
+      <p className="muted small no-m">
+        <DataStamp date={pricing.date} checkedAt={pricing.checkedAt} label="Rata-rata nasional per" /> · PIHPS Bank Indonesia. Garis kecil = 14 hari terakhir.
+      </p>
     </div>
   )
 }
