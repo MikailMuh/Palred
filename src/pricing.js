@@ -24,5 +24,5 @@ export function usePricing(provName) {
   const seriesOf = (key, days = 14) => (ready ? seriesUntil(state.data, key, state.meta.latest, '').slice(-days).map((p) => p.value) : [])
   const nameOf = (key) => (ready ? state.data.commodities?.[key]?.name : undefined)
 
-  return { status: state.status, retry: state.retry, date: ready ? state.meta.latest : null, priceOf, refOf, packFor, retailFor, changeOf, seriesOf, nameOf }
+  return { status: state.status, retry: state.retry, date: ready ? state.meta.latest : null, checkedAt: ready ? state.meta.checkedAt : null, priceOf, refOf, packFor, retailFor, changeOf, seriesOf, nameOf }
 }

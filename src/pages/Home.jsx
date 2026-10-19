@@ -1,4 +1,5 @@
 import HeroPrices from '../components/HeroPrices.jsx'
+import InstallStrip from '../components/InstallStrip.jsx'
 import MiniBoard from '../components/MiniBoard.jsx'
 import Movers from '../components/Movers.jsx'
 import Ticker from '../components/Ticker.jsx'
@@ -27,7 +28,7 @@ export default function Home({ go }) {
             Palred menghubungkan dapur UMKM dengan pasar tradisional: titip belanja ke shopper kami,
             pantau harga komoditas per provinsi setiap hari, atau pesan paket bahan yang sudah ditakar per resep.
           </p>
-          <div className="row gap">
+          <div className="row gap hero-cta">
             <button className="btn primary" onClick={() => go('jastip')}>Mulai titip belanja</button>
             <button className="btn ghost" onClick={() => go('harga')}>Cek harga hari ini</button>
           </div>
@@ -37,6 +38,8 @@ export default function Home({ go }) {
           <HeroMarket />
         </div>
       </section>
+
+      <InstallStrip />
 
       <section className="container section" data-reveal>
         <div className="section-head">

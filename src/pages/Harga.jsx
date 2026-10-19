@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Produce, Sparkline } from '../components/Art.jsx'
 import CekHarga from '../components/CekHarga.jsx'
 import { angka } from '../data.js'
+import DataStamp from '../components/DataStamp.jsx'
 import { PRICE_GROUPS, daysSince, formatTanggal, isStale, seriesUntil, usePriceData, valueAt } from '../prices.js'
 
 const CATEGORIES = ['Semua', 'Bumbu', 'Protein', 'Sembako']
@@ -86,12 +87,15 @@ function Billboard({ data, meta }) {
         </div>
       )}
       <p className="small muted data-date">
-        <strong>Data per {formatTanggal(latest)}</strong>
+        <DataStamp date={latest} checkedAt={meta.checkedAt} />
         {previous && <> · selisih dibanding {formatTanggal(previous)}</>}
         {partialNewer.map((p) => (
           <span key={p.date}> · Data {formatTanggal(p.date)} baru {p.count} dari {totalProvinces} provinsi, belum dipakai</span>
         ))}
       </p>
+      {!isStale(latest) && daysSince(latest) > 0 && (
+        <p className="small muted data-date">PIHPS tidak menerbitkan harga di akhir pekan dan hari libur, jadi data terbaru bisa tertinggal beberapa hari.</p>
+      )}
 
       <div className="layout-aside wide-aside">
         <div className="board">

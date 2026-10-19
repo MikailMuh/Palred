@@ -3,7 +3,7 @@ import { Produce } from '../components/Art.jsx'
 import LocationPicker from '../components/LocationPicker.jsx'
 import { angka, commodities, markets, rupiah, slots } from '../data.js'
 import { SERVICE_RADIUS_KM, deliveryFee, rankMarkets } from '../geo.js'
-import { formatTanggal } from '../prices.js'
+import { formatTanggal, formatWaktu } from '../prices.js'
 import { usePricing } from '../pricing.js'
 import { useUserLocation } from '../useUserLocation.js'
 
@@ -118,7 +118,7 @@ export default function Jastip() {
       {pricing.status === 'loading' && <p className="small data-date data-date-loading" aria-hidden="true" />}
       {pricing.date && (
         <p className="small muted data-date">
-          Harga bertanda PIHPS = patokan rata-rata {REGION} per {formatTanggal(pricing.date)} dari PIHPS Bank Indonesia. Bertanda estimasi = perkiraan kami, bukan data resmi.
+          Harga bertanda PIHPS = patokan rata-rata {REGION} per {formatTanggal(pricing.date)} dari PIHPS Bank Indonesia. Bertanda estimasi = perkiraan kami, bukan data resmi.{pricing.checkedAt && formatWaktu(pricing.checkedAt, false) && ` Terakhir dicek ${formatWaktu(pricing.checkedAt, false)}.`}
         </p>
       )}
 
