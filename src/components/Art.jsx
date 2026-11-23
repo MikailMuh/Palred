@@ -150,13 +150,37 @@ const produce = {
   ),
 }
 
-export function Produce({ type, size = 48, bg }) {
+// Foto bahan (public/img/food, CC0/PDM dari Openverse; lihat CREDITS.txt). Ilustrasi SVG hanya untuk tipe tanpa foto.
+const PHOTOS = new Set(['cabai', 'bawang', 'bawangPutih', 'tomat', 'wortel', 'telur', 'beras', 'daging', 'ayam', 'kentang', 'sayur', 'kelapa', 'minyak', 'gula', 'jahe', 'ikan', 'tahu'])
+
+export function Produce({ type, size = 48, bg, shape = 'circle', style }) {
+  if (PHOTOS.has(type)) {
+    return (
+      <img
+        src={`/img/food/${type}.webp`}
+        width={size}
+        height={size}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className={`produce-img ${shape}`}
+        style={{ width: size, height: size, ...style }}
+      />
+    )
+  }
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
       {bg && <circle cx="32" cy="32" r="32" fill={bg} />}
       {produce[type] ?? produce.sayur}
     </svg>
   )
+}
+
+const DISH_PHOTOS = new Set(['rendang', 'soto', 'nasgor', 'opor', 'ikanbalado'])
+
+export function DishPhoto({ id, dish }) {
+  if (!DISH_PHOTOS.has(id)) return <div className="dish-illu"><Dish {...dish} /></div>
+  return <img src={`/img/food/dish-${id}.webp`} width="720" height="540" alt="" loading="lazy" decoding="async" className="dish-photo" />
 }
 
 function Pile({ type }) {

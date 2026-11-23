@@ -25,9 +25,11 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,webp}'],
         globIgnores: ['og-image.png'],
         navigateFallback: '/index.html',
+        // File statis (mis. kredit foto) dibuka langsung, bukan dibelokkan ke aplikasi.
+        navigateFallbackDenylist: [/\.[a-z0-9]+$/i],
         runtimeCaching: [
           {
             // Prices change daily: try the network first, fall back to the last copy when offline.

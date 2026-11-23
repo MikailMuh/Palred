@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Produce } from '../components/Art.jsx'
+import Icon from '../components/Icon.jsx'
 import LocationPicker from '../components/LocationPicker.jsx'
 import { angka, commodities, markets, rupiah, slots } from '../data.js'
 import { SERVICE_RADIUS_KM, deliveryFee, rankMarkets } from '../geo.js'
 import { formatTanggal, formatWaktu } from '../prices.js'
 import { usePricing } from '../pricing.js'
 import { useUserLocation } from '../useUserLocation.js'
+import WaButton from '../components/WaButton.jsx'
 
 // Pasar di daftar semuanya di Jakarta, jadi patokan harga memakai DKI Jakarta (fallback rata-rata nasional kalau kosong).
 const REGION = 'DKI Jakarta'
@@ -129,7 +131,8 @@ export default function Jastip() {
             <LocationPicker status={loc.status} outside={outside} onRequest={loc.request} onClear={loc.clear} />
             <div className="market-grid">
               {shown.map((x, i) => (
-                <button key={x.id} className={`market ${market === x.id ? 'selected' : ''}`} onClick={() => setMarket(x.id)}>
+                <button key={x.id} className={`market ${market === x.id ? 'selected' : ''}`} aria-pressed={market === x.id} onClick={() => setMarket(x.id)}>
+                  <span className="market-photo"><img src={x.photo} alt="" width="360" height="225" loading="lazy" decoding="async" />{market === x.id && <span className="market-check"><Icon name="check" size={16} stroke={3} /></span>}</span>
                   <div className="strong">{x.name}</div>
                   <div className="muted small">{x.area}{ranked && !outside ? ` · ± ${kmText(x.km)} km` : ''}</div>
                   <div className="row between small">
@@ -139,6 +142,7 @@ export default function Jastip() {
                 </button>
               ))}
             </div>
+            <MarketDetail market={m} km={km} />
           </div>
 
           <div className="card pad">
@@ -252,9 +256,9 @@ function Ringkasan({ order, pricingDate, onBack, onReset }) {
     <section className="container page">
       <header className="page-head">
         <span className="eyebrow">Ringkasan pesanan jastip</span>
-        <h1>Pesananmu belum dikirim</h1>
+        <h1>Cek lagi, lalu kirim ke WhatsApp</h1>
         <p className="muted">
-          Prototipe ini belum terhubung ke WhatsApp tim, jadi belum ada pesanan yang masuk. Ini ringkasan yang akan dikirim nanti. Harga final sesuai struk pasar.
+          Pesanan baru masuk setelah kamu menekan kirim di WhatsApp. Tim akan membalas untuk konfirmasi ongkir dan jadwal. Harga final sesuai struk pasar.
         </p>
       </header>
       <div className="layout-aside">
@@ -299,10 +303,64 @@ function Ringkasan({ order, pricingDate, onBack, onReset }) {
           </dl>
           {ongkir == null && <p className="muted small">Total belum termasuk ongkir.</p>}
           {pricingDate && <p className="muted small">Harga PIHPS per {formatTanggal(pricingDate)}.</p>}
+          <WaButton text={() => jastipMessage(order, pricingDate)} />
           <button className="btn ghost block" onClick={onBack}>Ubah pesanan</button>
           <button className="btn light block" onClick={onReset}>Buat titipan baru</button>
         </aside>
       </div>
     </section>
+  )
+}
+
+function jastipMessage({ market, slot, ifOut, form, custom, lines, subtotal, jasa, ongkir, km, total }, pricingDate) {
+  const rows = lines.map((l) => `• ${l.n} ${l.unit} ${l.name} — ${rupiah(l.sub)}${l.pihpsKey ? '' : ' (estimasi)'}`)
+  return [
+    '*Pesanan Jastip TitipinBro*',
+    '',
+    `Nama usaha: ${form.nama}`,
+    `No. WhatsApp: ${form.hp}`,
+    `Alamat antar: ${form.alamat}`,
+    `Pasar: ${market.name}, ${market.area}`,
+    `Slot antar besok: ${slot}`,
+    `Kalau barang kosong: ${IF_OUT.find((o) => o.id === ifOut).label}`,
+    '',
+    '*Daftar belanja*',
+    ...(rows.length ? rows : ['(hanya titipan khusus)']),
+    ...(custom ? ['', `*Titipan khusus*: ${custom}`] : []),
+    '',
+    `Estimasi belanja: ${rupiah(subtotal)}`,
+    `Biaya jasa: ${rupiah(jasa)}`,
+    ongkir == null ? 'Ongkir: mohon dihitungkan' : `Ongkir (± ${kmText(km)} km): ${rupiah(ongkir)}`,
+    `*Total estimasi: ${rupiah(total)}*${ongkir == null ? ' (belum termasuk ongkir)' : ''}`,
+    '',
+    `Harga patokan PIHPS${pricingDate ? ` per ${formatTanggal(pricingDate)}` : ''}; harga final sesuai struk pasar.`,
+  ].join('\n')
+}
+
+function MarketDetail({ market, km }) {
+  const q = `${market.lat},${market.lng}`
+  return (
+    <div className="market-detail" key={market.id}>
+      <figure className="market-hero">
+        <img src={market.photo} alt={market.photoNote} width="720" height="450" decoding="async" />
+        <figcaption>
+          <strong>{market.name}</strong>
+          <span>{market.area} · Buka {market.open}{km != null ? ` · ± ${kmText(km)} km dari kamu` : ''}</span>
+        </figcaption>
+      </figure>
+      <div className="market-map">
+        <iframe
+          title={`Peta lokasi ${market.name}`}
+          src={`https://maps.google.com/maps?q=${q}&z=16&hl=id&output=embed`}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+      <div className="market-actions">
+        <a className="btn ghost sm" href={`https://www.google.com/maps/search/?api=1&query=${q}`} target="_blank" rel="noopener"><Icon name="pin" size={16} /> Buka di Google Maps</a>
+        <a className="btn ghost sm" href={`https://www.google.com/maps/dir/?api=1&destination=${q}`} target="_blank" rel="noopener"><Icon name="truck" size={16} /> Rute ke pasar</a>
+      </div>
+      <p className="muted small no-m">Foto: {market.photoNote}, Wikimedia Commons (lihat Kredit foto). Jam buka adalah perkiraan kami.</p>
+    </div>
   )
 }

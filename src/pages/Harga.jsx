@@ -10,7 +10,7 @@ const PROV_PREVIEW = 10
 
 const persen = (n) => Math.abs(n).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
-export default function Harga() {
+export default function Harga({ initialQuery = '' }) {
   const state = usePriceData()
 
   return (
@@ -35,15 +35,15 @@ export default function Harga() {
           <p className="muted small">Data dari PIHPS Bank Indonesia belum tersedia. Coba lagi nanti.</p>
         </div>
       )}
-      {state.status === 'ready' && <Billboard data={state.data} meta={state.meta} />}
+      {state.status === 'ready' && <Billboard data={state.data} meta={state.meta} initialQuery={initialQuery} />}
     </section>
   )
 }
 
-function Billboard({ data, meta }) {
+function Billboard({ data, meta, initialQuery }) {
   const { latest, previous, provinces, partialNewer, totalProvinces } = meta
   const [cat, setCat] = useState('Semua')
-  const [q, setQ] = useState('')
+  const [q, setQ] = useState(initialQuery)
   const [selectedGroup, setSelectedGroup] = useState('cabai-merah')
   const [variants, setVariants] = useState({})
   const [provId, setProvId] = useState('')

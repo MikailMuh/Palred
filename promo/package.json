@@ -1,0 +1,20 @@
+{
+  "name": "titipinbro-promo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Video promosi TitipinBro (Remotion). Aset foto diambil dari ../public.",
+  "scripts": {
+    "studio": "remotion studio src/index.jsx",
+    "render:short": "remotion render src/index.jsx PromoShort out/titipinbro-promo-15s.mp4",
+    "render:long": "remotion render src/index.jsx PromoLong out/titipinbro-promo-30s.mp4",
+    "render": "npm run render:short && npm run render:long"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.545",
+    "@remotion/google-fonts": "4.0.545",
+    "@remotion/transitions": "4.0.545",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.545"
+  }
+}

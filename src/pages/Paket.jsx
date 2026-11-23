@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Dish, PackageBox, Produce } from '../components/Art.jsx'
+import { DishPhoto, PackageBox, Produce } from '../components/Art.jsx'
 import { recipes, rupiah } from '../data.js'
 import { formatTanggal, formatWaktu } from '../prices.js'
 import { usePricing } from '../pricing.js'
@@ -56,8 +56,8 @@ export default function Paket({ addToCart }) {
       <div className="grid-3">
         {list.map((r) => (
           <article key={r.id} className="card recipe-card">
-            <button className="dish-wrap" onClick={() => setOpen(r)} aria-label={`${r.level}, lihat paket ${r.name}`}>
-              <Dish {...r.dish} />
+            <button className="dish-wrap photo" onClick={() => setOpen(r)} aria-label={`${r.level}, lihat paket ${r.name}`}>
+              <DishPhoto id={r.id} dish={r.dish} />
               <span className="level">{r.level}</span>
             </button>
             <div className="recipe-meta">
@@ -107,7 +107,7 @@ function Detail({ recipe, pricing, onClose, addToCart }) {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" /></svg>
         </button>
         <div className="drawer-hero">
-          <Dish {...recipe.dish} />
+          <DishPhoto id={recipe.id} dish={recipe.dish} />
         </div>
         <div className="drawer-body">
           <span className="eyebrow">{recipe.origin} · {recipe.minutes} menit · {recipe.level}</span>
@@ -174,8 +174,8 @@ function Detail({ recipe, pricing, onClose, addToCart }) {
           <button
             className="btn primary"
             disabled={!pack}
-            onClick={() => {
-              addToCart({ recipeId: recipe.id, portions })
+            onClick={(e) => {
+              addToCart({ recipeId: recipe.id, portions }, e.currentTarget.closest('.drawer').querySelector('.drawer-hero'))
               onClose()
             }}
           >

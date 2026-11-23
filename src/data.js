@@ -30,10 +30,10 @@ export const commodities = [
 
 // Coordinates from OpenStreetMap (Nominatim, 17 Okt 2026). TODO: verify the entrance points. Opening hours are our estimate, TODO verify.
 export const markets = [
-  { id: 'kramatjati', name: 'Pasar Induk Kramat Jati', area: 'Jakarta Timur', lat: -6.2942219, lng: 106.8720479, open: '00.00 – 10.00' },
-  { id: 'senen', name: 'Pasar Senen', area: 'Jakarta Pusat', lat: -6.1744233, lng: 106.8445744, open: '04.00 – 16.00' },
-  { id: 'minggu', name: 'Pasar Minggu', area: 'Jakarta Selatan', lat: -6.2833322, lng: 106.8448558, open: '03.00 – 14.00' },
-  { id: 'kebayoran', name: 'Pasar Kebayoran Lama', area: 'Jakarta Selatan', lat: -6.2371412, lng: 106.7809418, open: '02.00 – 12.00' },
+  { id: 'kramatjati', name: 'Pasar Induk Kramat Jati', area: 'Jakarta Timur', photo: '/img/pasar/kramatjati.webp', photoNote: 'Foto kawasan Pasar Kramat Jati', lat: -6.2942219, lng: 106.8720479, open: '00.00 – 10.00' },
+  { id: 'senen', name: 'Pasar Senen', area: 'Jakarta Pusat', photo: '/img/pasar/senen.webp', photoNote: 'Kompleks Pasar Senen', lat: -6.1744233, lng: 106.8445744, open: '04.00 – 16.00' },
+  { id: 'minggu', name: 'Pasar Minggu', area: 'Jakarta Selatan', photo: '/img/pasar/minggu.webp', photoNote: 'Lapak pisang di Pasar Minggu', lat: -6.2833322, lng: 106.8448558, open: '03.00 – 14.00' },
+  { id: 'kebayoran', name: 'Pasar Kebayoran Lama', area: 'Jakarta Selatan', photo: '/img/pasar/kebayoran.webp', photoNote: 'Kawasan Pasar Kebayoran Lama', lat: -6.2371412, lng: 106.7809418, open: '02.00 – 12.00' },
 ]
 
 export const slots = ['05.00 – 07.00', '07.00 – 09.00', '09.00 – 11.00', '13.00 – 15.00']
